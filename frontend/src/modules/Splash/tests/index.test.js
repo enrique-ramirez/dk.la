@@ -4,7 +4,6 @@ import configureStore from 'redux-mock-store'
 import { shallow, mount } from 'enzyme'
 import { fromJS } from 'immutable'
 import { MemoryRouter } from 'react-router-dom'
-import { IntlProvider } from 'react-intl'
 
 import ConnectedSplash from 'modules/Splash'
 
@@ -39,11 +38,9 @@ describe('Connected <Splash />', () => {
 
   it('props should match mapDispatchToProps', () => {
     mount(
-      <IntlProvider locale="en" messages={{ en: {} }}>
-        <MemoryRouter>
-          <ConnectedSplash />
-        </MemoryRouter>
-      </IntlProvider>,
+      <MemoryRouter>
+        <ConnectedSplash />
+      </MemoryRouter>,
       {
         context: { store },
         childContextTypes: { store: PropTypes.object.isRequired },

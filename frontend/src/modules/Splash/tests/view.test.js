@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallowWithIntl } from 'utils/intl-enzyme'
+import { shallow } from 'enzyme'
 import { fromJS } from 'immutable'
 
 import Splash from 'modules/Splash/view'
@@ -22,14 +22,14 @@ describe('<Splash />', () => {
 
   beforeEach(() => {
     loadSplash = jest.fn()
-    wrapper = shallowWithIntl(<Splash
+    wrapper = shallow(<Splash
       loadSplash={loadSplash}
       splash={initialState.get('splash')}
     />)
   })
 
   it('should not render a video element when loading is true', () => {
-    wrapper = shallowWithIntl(<Splash
+    wrapper = shallow(<Splash
       loadSplash={loadSplash}
       splash={initialState.get('splash').set('loading', true)}
     />)

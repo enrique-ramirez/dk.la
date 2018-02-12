@@ -1,4 +1,3 @@
-import { injectIntl } from 'react-intl'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
@@ -17,4 +16,4 @@ const mapDispatchToProps = {
   loadSplash,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Splash))
+export default connect(mapStateToProps, mapDispatchToProps)(Splash)

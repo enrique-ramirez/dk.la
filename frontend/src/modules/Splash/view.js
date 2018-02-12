@@ -5,7 +5,6 @@ import { is } from 'immutable'
 import { Helmet } from 'react-helmet'
 
 import styles from './styles.css'
-import messages from './messages'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Splash extends React.Component {
@@ -23,14 +22,14 @@ class Splash extends React.Component {
 
   render() {
     const {
-      intl,
       splash,
     } = this.props
 
     return (
       <div>
         <Helmet>
-          <title>{intl.formatMessage(messages.title)}</title>
+          <title>{splash.getIn(['page', 'acf', 'seo_title'])}</title>
+          <meta content={splash.getIn(['page', 'acf', 'seo_description'])} name="description" />
         </Helmet>
 
         <div className={styles.wrapper}>
@@ -49,8 +48,6 @@ class Splash extends React.Component {
 }
 
 Splash.propTypes = {
-  /** intl function */
-  intl: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   /** Function to request splash page. */
   loadSplash: PropTypes.func,
   /** Splash state */
