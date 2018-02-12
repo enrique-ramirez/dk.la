@@ -1,0 +1,11 @@
+.header {
+  margin: 0 auto;
+  padding: 50px;
+  position: fixed;
+  width: 100%;
+}
+
+.header svg {
+  height: 75px;
+  width: 75px;
+}

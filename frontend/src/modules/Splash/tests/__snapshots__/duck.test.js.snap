@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`todos duck sagas loadSplashSaga should call LOAD_SPLASH.ERROR on error 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`todos duck sagas loadSplashSaga should call an api function and dispatch LOAD_SPLASH.SUCCESS on success 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`todos duck sagas loadSplashSaga should call an api function and dispatch LOAD_SPLASH.SUCCESS on success 2`] = `
+Object {
+  "done": false,
+  "value": Object {
+    "@@redux-saga/IO": true,
+    "CALL": Object {
+      "args": Array [
+        Object {
+          "entities": Object {
+            "categories": Object {
+              "hyrule-234": Object {
+                "name": "Princess saving",
+              },
+            },
+            "pages": Object {
+              "hyrule-126": Object {
+                "name": "Ingo",
+              },
+            },
+          },
+        },
+        EntitySchema {
+          "_getId": [Function],
+          "_idAttribute": "id",
+          "_key": "pages",
+          "_mergeStrategy": [Function],
+          "_processStrategy": [Function],
+          "schema": Object {
+            "author": EntitySchema {
+              "_getId": [Function],
+              "_idAttribute": "id",
+              "_key": "users",
+              "_mergeStrategy": [Function],
+              "_processStrategy": [Function],
+              "schema": Object {},
+            },
+            "featured_media": EntitySchema {
+              "_getId": [Function],
+              "_idAttribute": "id",
+              "_key": "media",
+              "_mergeStrategy": [Function],
+              "_processStrategy": [Function],
+              "schema": Object {
+                "author": EntitySchema {
+                  "_getId": [Function],
+                  "_idAttribute": "id",
+                  "_key": "users",
+                  "_mergeStrategy": [Function],
+                  "_processStrategy": [Function],
+                  "schema": Object {},
+                },
+              },
+            },
+          },
+        },
+      ],
+      "context": null,
+      "fn": [Function],
+    },
+  },
+}
+`;

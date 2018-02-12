@@ -1,0 +1,27 @@
+{
+  "presets": ["react", ["env"]],
+  "plugins": [
+    "transform-object-rest-spread",
+    "react-hot-loader/babel",
+    ["react-intl-auto", {
+      removePrefix: 'src',
+      extractComments: true
+    }],
+    "react-intl-id-hash",
+    ["react-intl", {
+      "messagesDir": "frontend/.extractedMessages",
+      "enforceDescriptions": true
+    }]
+  ],
+  "minified": false,
+  "comments": true,
+  "env": {
+    "production": {
+      "minified": true,
+      "comments": false
+    },
+    "test": {
+      "presets": ["react", ["env", { "modules": "commonjs" }]]
+    }
+  }
+}
