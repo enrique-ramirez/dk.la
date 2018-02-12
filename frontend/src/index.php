@@ -10,7 +10,7 @@
 <html <?php language_attributes(); ?>>
   <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
       window.WPApiUrl = '<?php echo get_stylesheet_directory_uri() ?>';
     </script>
@@ -19,5 +19,5 @@
   <body>
     <div id="root"></div>
     <?php wp_footer(); ?>
-  <script type="text/javascript" src="<?php echo get_template_directory_uri() ?>/assets/vendor.js"></script><script type="text/javascript" src="<?php echo get_template_directory_uri() ?>/assets/main.js"></script></body>
+  </body>
 </html>

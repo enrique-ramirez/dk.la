@@ -1,12 +1,11 @@
 const webpack = require('webpack')
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = options => ({
   devtool: options.devtool,
   entry: options.entry,
   output: Object.assign({
-    path: path.resolve(process.cwd(), 'dist'),
+    path: path.resolve(process.cwd()),
     publicPath: '/',
   }, options.output),
   module: {
@@ -50,25 +49,6 @@ module.exports = options => ({
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: module => module.context && module.context.includes('node_modules'),
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'frontend/src/index.html',
-      filename: 'index.html',
-      inject: 'body',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
-      hash: true,
     }),
   ]),
   resolve: {

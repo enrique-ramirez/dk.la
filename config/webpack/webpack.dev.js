@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const port = 8080
 
@@ -10,6 +11,24 @@ const plugins = [
   new CircularDependencyPlugin({
     exclude: /a\.js|node_modules/,
     failOnError: false,
+  }),
+  new HtmlWebpackPlugin({
+    template: 'frontend/src/index.html',
+    filename: 'index.html',
+    inject: 'body',
+    minify: {
+      removeComments: false,
+      collapseWhitespace: false,
+      removeRedundantAttributes: true,
+      useShortDoctype: true,
+      removeEmptyAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      keepClosingSlash: true,
+      minifyJS: false,
+      minifyCSS: false,
+      minifyURLs: false,
+    },
+    hash: true,
   }),
 ]
 
@@ -24,8 +43,8 @@ module.exports = require('./webpack.common')({
   ],
 
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',
+    filename: 'assets/[name].js',
+    chunkFilename: 'assets/[name].chunk.js',
   },
 
   plugins,
@@ -35,7 +54,7 @@ module.exports = require('./webpack.common')({
   },
 
   devServer: {
-    contentBase: path.join(process.cwd(), 'dist'),
+    contentBase: path.join(process.cwd(), 'assets'),
     historyApiFallback: true,
     hot: true,
     inline: true,
