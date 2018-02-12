@@ -14,7 +14,7 @@ import {
 import page from 'store/schemas/page'
 
 import {
-  fetchSplashPage,
+  fetchFrontPage,
 } from 'utils/api'
 
 /* Actions */
@@ -72,7 +72,7 @@ export const loadSplash = createAction(LOAD_SPLASH.ACTION)
 /* Side Effects */
 export function* loadSplashSaga() {
   try {
-    const response = yield call(fetchSplashPage)
+    const response = yield call(fetchFrontPage)
     const normalized = yield call(normalize, response, page)
     yield put({
       type: LOAD_SPLASH.SUCCESS,

@@ -52,6 +52,9 @@ module.exports = options => ({
     }),
   ]),
   resolve: {
+    alias: {
+      config$: path.resolve(__dirname, '../..', 'config/settings.js'),
+    },
     modules: [path.resolve(__dirname, '../..', 'frontend/src'), 'node_modules'],
     extensions: [
       '.js',
