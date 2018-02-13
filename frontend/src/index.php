@@ -12,7 +12,7 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
-      window.WPApiUrl = '<?php echo get_stylesheet_directory_uri() ?>';
+      window.WPApiUrl = '<?php echo get_rest_url(null, 'wp/v2') ?>';
     </script>
     <?php wp_head(); ?>
   </head>

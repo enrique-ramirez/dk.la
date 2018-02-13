@@ -1,5 +1,5 @@
 import {
-  fetchSplashPage,
+  fetchFrontPage,
 } from 'utils/api'
 
 describe('api', () => {
@@ -17,8 +17,8 @@ describe('api', () => {
     })
   })
 
-  it('fetchSplashPage', async () => {
-    const response = await fetchSplashPage()
+  it('fetchFrontPage', async () => {
+    const response = await fetchFrontPage()
 
     expect(response.length).toEqual(3)
   })

@@ -20,6 +20,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|svg)$': '<rootDir>/config/jest/fileMock.js',
     '^.+\\.(css)$': 'identity-obj-proxy',
+    '^config$': '<rootDir>/config/settings.js',
   },
   setupTestFrameworkScriptFile: './config/jest/setupTests',
   transform: {
