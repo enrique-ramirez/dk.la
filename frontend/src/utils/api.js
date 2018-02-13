@@ -9,9 +9,15 @@ const headers = {
 
 const parseJSON = response => response.json()
 
-// eslint-disable-next-line import/prefer-default-export
 export const fetchFrontPage = () => (
   fetch(`${url}/frontpage`, {
+    headers,
+    method: 'GET',
+  }).then(parseJSON)
+)
+
+export const fetchPosts = () => (
+  fetch(`${url}/posts`, {
     headers,
     method: 'GET',
   }).then(parseJSON)

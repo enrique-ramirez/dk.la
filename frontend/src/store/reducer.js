@@ -5,6 +5,7 @@ import { Map, fromJS } from 'immutable'
 
 /* Resources reducers imports */
 import splash from 'modules/Splash/duck'
+import projects from 'modules/Projects/duck'
 import languageProvider from 'modules/LanguageProvider/duck'
 
 /* Utils */
@@ -35,6 +36,7 @@ const entities = (state = fromJS({}), action) => {
 /* Resources reducer */
 const resources = combineReducers({
   splash,
+  projects,
   languageProvider,
 })
 

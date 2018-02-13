@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 
 import Splash from 'modules/Splash'
+import Projects from 'modules/Projects'
 
 import Header from 'components/Header'
 
@@ -14,7 +15,8 @@ function App() {
   return (
     <div>
       <Header />
-      <Route component={Splash} path="/" />
+      <Route component={Projects} path="/projects" />
+      <Route component={Splash} exact path="/" />
     </div>
   )
 }
