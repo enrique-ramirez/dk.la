@@ -13,7 +13,7 @@ const plugins = [
     failOnError: false,
   }),
   new HtmlWebpackPlugin({
-    template: 'frontend/src/index.html',
+    template: 'src/index.html',
     filename: 'index.html',
     inject: 'body',
     minify: {
@@ -39,7 +39,7 @@ module.exports = require('./webpack.common')({
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}`,
     'webpack/hot/only-dev-server',
-    path.join(process.cwd(), 'frontend/src/app.js'),
+    path.join(process.cwd(), 'src/app.js'),
   ],
 
   output: {

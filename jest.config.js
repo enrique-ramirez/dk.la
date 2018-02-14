@@ -1,11 +1,11 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
-    'frontend/src/**/*.js',
-    '!frontend/src/**/*.test.js',
-    '!frontend/src/app.js',
-    '!frontend/src/utils/intl-enzyme.js',
-    '!frontend/src/store/schemas/**/*.js',
+    'src/**/*.js',
+    '!src/**/*.test.js',
+    '!src/app.js',
+    '!src/utils/intl-enzyme.js',
+    '!src/store/schemas/**/*.js',
   ],
   coverageDirectory: './coverage',
   coverageThreshold: {
@@ -16,7 +16,7 @@ module.exports = {
       statements: 98,
     },
   },
-  moduleDirectories: ['node_modules', 'frontend/src'],
+  moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|svg)$': '<rootDir>/config/jest/fileMock.js',
     '^.+\\.(css)$': 'identity-obj-proxy',

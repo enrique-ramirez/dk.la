@@ -55,7 +55,7 @@ module.exports = options => ({
     alias: {
       config$: path.resolve(__dirname, '../..', 'config/settings.js'),
     },
-    modules: [path.resolve(__dirname, '../..', 'frontend/src'), 'node_modules'],
+    modules: [path.resolve(__dirname, '../..', 'src'), 'node_modules'],
     extensions: [
       '.js',
       '.jsx',

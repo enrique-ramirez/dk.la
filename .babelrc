@@ -9,7 +9,7 @@
     }],
     "react-intl-id-hash",
     ["react-intl", {
-      "messagesDir": "frontend/.extractedMessages",
+      "messagesDir": ".extractedMessages",
       "enforceDescriptions": true
     }]
   ],

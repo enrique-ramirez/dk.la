@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const plugins = [
   new UglifyJsPlugin(),
   new HtmlWebpackPlugin({
-    template: 'frontend/src/index.php',
+    template: 'src/index.php',
     filename: 'index.php',
     inject: 'body',
     minify: {
@@ -28,7 +28,7 @@ module.exports = require('./webpack.common')({
   devtool: undefined,
 
   entry: [
-    path.join(process.cwd(), 'frontend/src/app.js'),
+    path.join(process.cwd(), 'src/app.js'),
   ],
 
   output: {

@@ -9,24 +9,24 @@
   "bugs": {
     "url": "https://github.com/enrique-ramirez/dk.la/issues"
   },
-  "main": "frontend/src/app.js",
+  "main": "src/app.js",
   "directories": {
-    "lib": "./frontend/src"
+    "lib": "./src"
   },
   "scripts": {
     "prebuild": "yarn lint && yarn test",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack/webpack.prod.js",
     "start:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --config config/webpack/webpack.dev.js",
     "start:storybook": "start-storybook -p 9001 -c .storybook",
-    "lint": "eslint frontend/src/**/*.js && stylelint frontend/src/**/*.css",
+    "lint": "eslint src/**/*.js && stylelint src/**/*.css",
     "precommit": "lint-staged && yarn test",
     "test": "jest",
     "test:watch": "yarn test --watch",
-    "locales:extract": "babel-node ./frontend/scripts/translations/extract.js"
+    "locales:extract": "babel-node ./scripts/translations/extract.js"
   },
   "lint-staged": {
-    "frontend/src/**/*.js": "lint",
-    "frontend/src/**/*.css": "stylelint"
+    "src/**/*.js": "lint",
+    "src/**/*.css": "stylelint"
   },
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
     "Wordpress"
   ],
   "files": [
-    "frontend/src"
+    "src"
   ],
   "engines": {
     "node": ">=8.9.3"
