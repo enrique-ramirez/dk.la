@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { is } from 'immutable'
 import { Helmet } from 'react-helmet'
+import { Link } from 'react-router-dom'
 
+import FullScreenVideo from 'components/FullScreenVideo'
+
+import ScrollArrow from './scroll_arrow.svg'
 import styles from './styles.css'
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -26,22 +30,24 @@ class Splash extends React.Component {
     } = this.props
 
     return (
-      <div>
+      <div className={styles.wrapper}>
         <Helmet>
           <title>{splash.getIn(['page', 'acf', 'seo_title'])}</title>
           <meta content={splash.getIn(['page', 'acf', 'seo_description'])} name="description" />
         </Helmet>
 
-        <div className={styles.wrapper}>
-          {splash.get('loading')
-          ? null
-          : (
-            <video autoPlay className={styles.video} loop>
-              <source src={splash.getIn(['page', 'acf', 'featured_video_webm'])} type="video/webm" />
-              <source src={splash.getIn(['page', 'acf', 'featured_video_mp4'])} type="video/mp4" />
-            </video>
-          )}
-        </div>
+        <Link to="/projects">
+          <ScrollArrow className={styles.scroll} />
+        </Link>
+
+        {splash.get('loading')
+        ? null
+        : (
+          <FullScreenVideo
+            mp4URL={splash.getIn(['page', 'acf', 'featured_video_mp4'])}
+            webmURL={splash.getIn(['page', 'acf', 'featured_video_webm'])}
+          />
+        )}
       </div>
     )
   }

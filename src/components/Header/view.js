@@ -1,7 +1,7 @@
 import React from 'react'
 // import PropTypes from 'prop-types'
 // import { FormattedMessage } from 'react-intl'
-// import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import matchProptype from 'types/match'
 
@@ -13,13 +13,16 @@ import LogoBlack from './logo_black.svg'
 
 function Header(props) {
   const { match } = props
+  const isSplash = match.path === '/'
 
   return (
     <header className={styles.header}>
-      {match.path === '/'
-        ? <LogoWhite />
-        : <LogoBlack />
-      }
+      <NavLink to="/">
+        {isSplash
+          ? <LogoWhite />
+          : <LogoBlack />
+        }
+      </NavLink>
     </header>
   )
 }
