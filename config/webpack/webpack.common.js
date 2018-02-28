@@ -36,6 +36,18 @@ module.exports = options => ({
         use: ['svg-react-loader'],
         exclude: /node_modules/,
       },
+      {
+        test: /\.woff$/,
+        loader: 'url-loader?limit=10240&mimetype=application/font-woff',
+      },
+      {
+        test: /\.ttf$/,
+        loader: 'url-loader?limit=10240&mimetype=application/x-font-ttf',
+      },
+      {
+        test: /\.eot$/,
+        loader: 'url-loader?limit=10240&mimetype=application/vnd.ms-fontobject',
+      },
     ],
   },
   plugins: options.plugins.concat([

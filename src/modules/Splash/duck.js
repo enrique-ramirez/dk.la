@@ -73,7 +73,7 @@ export const loadSplash = createAction(LOAD_SPLASH.ACTION)
 export function* loadSplashSaga() {
   try {
     const response = yield call(fetchFrontPage)
-    const normalized = yield call(normalize, response, page)
+    const normalized = yield call(normalize, response.json, page)
     yield put({
       type: LOAD_SPLASH.SUCCESS,
       payload: fromJS(normalized.result),

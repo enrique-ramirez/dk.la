@@ -1,5 +1,28 @@
+@font-face {
+  font-family: 'DIN';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../fonts/DINReg.eot?#iefix') format('embedded-opentype'), url('../../fonts/DINReg.woff') format('woff'), url('../../fonts/DINReg.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DIN';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../fonts/DINMed.eot?#iefix') format('embedded-opentype'), url('../../fonts/DINMed.woff') format('woff'), url('../../fonts/DINMed.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DIN';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../fonts/DINBol.eot?#iefix') format('embedded-opentype'), url('../../fonts/DINBol.woff') format('woff'), url('../../fonts/DINBol.ttf') format('truetype');
+}
+
 html,
 body {
+  font-family: DIN, Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
   height: 100%;
   margin: 0;
   padding: 0;

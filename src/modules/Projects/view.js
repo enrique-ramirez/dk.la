@@ -6,12 +6,19 @@ import { Helmet } from 'react-helmet'
 
 // import styles from './styles.css'
 
+import ProjectsList from 'components/ProjectsList'
+
 // eslint-disable-next-line react/prefer-stateless-function
 class Projects extends React.Component {
   componentWillMount() {
-    const { loadPosts } = this.props
+    const {
+      loadPosts,
+      projects,
+    } = this.props
 
-    loadPosts()
+    if (projects.get('loading')) {
+      loadPosts()
+    }
   }
 
   shouldComponentUpdate(nextProps) {
@@ -32,13 +39,10 @@ class Projects extends React.Component {
           <meta content={projects.getIn(['page', 'acf', 'seo_description'])} name="description" />
         </Helmet>
 
-        <ul>
-          {projects.get('posts').map(post => (
-            <li key={post.get('id')}>
-              {post.getIn(['title', 'rendered'])}
-            </li>
-          ))}
-        </ul>
+        <ProjectsList
+          isLoading={projects.get('loading')}
+          posts={projects.get('posts').toJS()}
+        />
       </section>
     )
   }

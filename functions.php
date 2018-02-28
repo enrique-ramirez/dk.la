@@ -19,6 +19,10 @@
 
   if (!is_admin()) add_action('wp_enqueue_scripts', 'remove_scripts');
 
+  // Thumbnail sizes
+  add_theme_support('post-thumbnails');
+  add_image_size('grid-thumb', 400, 400, true);
+
   // Register post types
   function create_post_types() {
     register_post_type( 'dk_project',
@@ -28,9 +32,34 @@
           'singular_name' => __('Project')
         ),
         'public' => true,
+        'show_in_rest' => true,
         'has_archive' => true,
+        'taxonomies' => array('category'),
+        'supports' => array(
+          'title',
+          'editor',
+          'author',
+          'thumbnail',
+          'comments',
+        )
       )
     );
   }
+
   add_action('init', 'create_post_types');
+
+  // Remove Add Media Button for custom post type
+  function remove_media_button() {
+    global $current_screen;
+
+    if ('dk_project' == $current_screen -> post_type) remove_action('media_buttons', 'media_buttons');
+  }
+  add_action('admin_head','remove_media_button');
+
+  // Register menus
+  function register_menus() {
+    register_nav_menu('header-menu',__('Header Menu'));
+  }
+
+  add_action('init', 'register_menus');
 ?>

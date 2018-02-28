@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import Header from 'components/Header'
 
+import styles from './styles.css'
+
 function Layout(props) {
   const {
     component: Component,
@@ -10,7 +12,7 @@ function Layout(props) {
   } = props
 
   return (
-    <div style={{ height: '100%', padding: '175px 50px 50px', boxSizing: 'border-box' }}>
+    <div className={styles.container}>
       <Header />
       <Component route={route} />
     </div>

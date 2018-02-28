@@ -12,10 +12,15 @@ import styles from './styles.css'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Splash extends React.Component {
-  componentWillMount() {
-    const { loadSplash } = this.props
+  componentDidMount() {
+    const {
+      loadSplash,
+      splash,
+    } = this.props
 
-    loadSplash()
+    if (splash.get('loading')) {
+      loadSplash()
+    }
   }
 
   shouldComponentUpdate(nextProps) {
@@ -30,7 +35,7 @@ class Splash extends React.Component {
     } = this.props
 
     return (
-      <div className={styles.wrapper}>
+      <div>
         <Helmet>
           <title>{splash.getIn(['page', 'acf', 'seo_title'])}</title>
           <meta content={splash.getIn(['page', 'acf', 'seo_description'])} name="description" />
