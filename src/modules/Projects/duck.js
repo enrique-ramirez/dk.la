@@ -4,8 +4,6 @@ import { createSelector } from 'reselect'
 import { fromJS, Map } from 'immutable'
 import { normalize, denormalize } from 'normalizr'
 
-import { union } from 'utils/immutableHelpers'
-
 import {
   SUCCESS,
   ERROR,
@@ -47,7 +45,8 @@ const reducer = handleActions({
   [LOAD_POSTS.SUCCESS]: (state, action) => (
     state
       .set('loading', false)
-      .set('posts', union(state.get('posts'), action.payload))
+      .set('posts', state.get('posts').concat(action.payload.get('posts')))
+      .set('totalPages', parseInt(action.payload.getIn(['pagination', 'totalPages']), 10))
   ),
 }, defaultState)
 
@@ -137,7 +136,10 @@ export function* loadPostsSaga() {
     const normalized = yield call(normalize, response.json, [post])
     yield put({
       type: LOAD_POSTS.SUCCESS,
-      payload: fromJS(normalized.result),
+      payload: fromJS({
+        posts: normalized.result,
+        pagination: response.pagination,
+      }),
       entities: fromJS(normalized.entities),
     })
   } catch (err) {

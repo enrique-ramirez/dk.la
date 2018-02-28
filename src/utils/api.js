@@ -30,7 +30,7 @@ export const fetchFrontPage = () => (
 )
 
 export const fetchPosts = () => (
-  fetch(`${mainAPIURL}/dk_project`, {
+  fetch(`${mainAPIURL}/dk_project?per_page=9`, {
     headers,
     method: 'GET',
   }).then(parseJSON)

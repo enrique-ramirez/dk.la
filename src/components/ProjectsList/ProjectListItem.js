@@ -38,10 +38,12 @@ class ProjectListItem extends React.PureComponent {
   }
 
   handlePlayVideo() {
+    if (!this.$video) { return }
     this.$video.play()
   }
 
   handlePauseVideo() {
+    if (!this.$video) { return }
     this.$video.pause()
   }
 
