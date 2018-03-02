@@ -29,8 +29,8 @@ export const fetchFrontPage = () => (
   }).then(parseJSON)
 )
 
-export const fetchPosts = () => (
-  fetch(`${mainAPIURL}/dk_project?per_page=9`, {
+export const fetchPosts = (page = 1) => (
+  fetch(`${mainAPIURL}/dk_project?per_page=9&page=${page}`, {
     headers,
     method: 'GET',
   }).then(parseJSON)

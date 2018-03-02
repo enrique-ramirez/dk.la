@@ -47,6 +47,7 @@ const reducer = handleActions({
       .set('loading', false)
       .set('posts', state.get('posts').concat(action.payload.get('posts')))
       .set('totalPages', parseInt(action.payload.getIn(['pagination', 'totalPages']), 10))
+      .set('page', action.payload.get('page'))
   ),
 }, defaultState)
 
@@ -78,10 +79,14 @@ export const makeGetProjects = () => createSelector(
     const postsResult = denormalize(state.getIn(['projects', 'posts']), [post], state.get('entities'))
     const pageResult = denormalize(state.getIn(['projects', 'page']), page, state.get('entities'))
 
-    return Map({
+    return fromJS({
       loading: state.getIn(['projects', 'loading']),
       posts: postsResult,
       page: pageResult,
+      pagination: {
+        page: state.getIn(['projects', 'page']),
+        totalPages: state.getIn(['projects', 'totalPages']),
+      },
     })
   },
 )
@@ -120,10 +125,10 @@ export function* loadCategorySaga(id) {
   }
 }
 
-export function* loadPostsSaga() {
+export function* loadPostsSaga(action) {
   try {
     // Get POSTS
-    const response = yield call(fetchPosts)
+    const response = yield call(fetchPosts, action.payload)
 
     // Get featured media
     const featuredMediaIds = response.json.map(item => item.featured_media)
@@ -139,6 +144,7 @@ export function* loadPostsSaga() {
       payload: fromJS({
         posts: normalized.result,
         pagination: response.pagination,
+        page: action.payload || 1,
       }),
       entities: fromJS(normalized.entities),
     })
