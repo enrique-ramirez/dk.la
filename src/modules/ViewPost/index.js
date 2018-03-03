@@ -2,18 +2,18 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import {
-  loadSplash,
-  makeGetSplash,
+  loadPost,
+  makeGetViewPost,
 } from './duck'
 
-import Splash from './view'
+import ViewPost from './view'
 
 const mapStateToProps = createStructuredSelector({
-  splash: makeGetSplash(),
+  viewPost: makeGetViewPost(),
 })
 
 const mapDispatchToProps = {
-  loadSplash,
+  loadPost,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Splash)
+export default connect(mapStateToProps, mapDispatchToProps)(ViewPost)

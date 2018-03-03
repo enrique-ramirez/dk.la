@@ -8,6 +8,7 @@ import app from 'modules/App/duck'
 import splash from 'modules/Splash/duck'
 import projects from 'modules/Projects/duck'
 import languageProvider from 'modules/LanguageProvider/duck'
+import viewPost from 'modules/ViewPost/duck'
 
 /* Utils */
 export const clearReduxForm = state => (
@@ -40,6 +41,7 @@ const resources = combineReducers({
   splash,
   projects,
   languageProvider,
+  viewPost,
 })
 
 /* Input reducer */

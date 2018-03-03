@@ -5,8 +5,6 @@ import { is } from 'immutable'
 import { Helmet } from 'react-helmet'
 import InfiniteScroll from 'react-infinite-scroller'
 
-// import styles from './styles.css'
-
 import ProjectsList from 'components/ProjectsList'
 import Spinner from 'components/Spinner'
 
@@ -60,7 +58,7 @@ class Projects extends React.Component {
 }
 
 Projects.propTypes = {
-  /** Function to request splash page. */
+  /** Function to request projects page. */
   loadPosts: PropTypes.func,
   /** Projects state */
   projects: ImmutablePropTypes.map, // eslint-disable-line react/no-typos

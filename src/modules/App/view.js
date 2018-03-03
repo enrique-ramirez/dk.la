@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 
 import {
   Route,
@@ -8,13 +9,16 @@ import {
 
 import Splash from 'modules/Splash'
 import Projects from 'modules/Projects'
-// import Post from 'modules/Post'
+import ViewPost from 'modules/ViewPost'
 
 import Layout from 'components/Layout'
 
 import './styles.css'
 
-const layoutRender = component => route => <Layout component={component} route={route} /> // eslint-disable-line react/display-name
+// eslint-disable-next-line react/display-name
+const layoutRender = (component, headerMenu) => route => (
+  <Layout component={component} headerMenu={headerMenu.toJS()} route={route} />
+)
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component { // eslint-disable-line react/require-optimization
@@ -24,16 +28,25 @@ class App extends React.Component { // eslint-disable-line react/require-optimiz
   }
 
   render() {
+    const {
+      headerMenu,
+    } = this.props
+
     return (
       <Switch>
         <Route
+          path="/projects/view/:slug"
+          render={layoutRender(ViewPost, headerMenu)}
+        />
+
+        <Route
           path="/projects"
-          render={layoutRender(Projects)}
+          render={layoutRender(Projects, headerMenu)}
         />
 
         <Route
           path="/"
-          render={layoutRender(Splash)}
+          render={layoutRender(Splash, headerMenu)}
         />
       </Switch>
     )
@@ -41,6 +54,7 @@ class App extends React.Component { // eslint-disable-line react/require-optimiz
 }
 
 App.propTypes = {
+  headerMenu: ImmutablePropTypes.map, // eslint-disable-line react/no-typos
   loadHeaderMenu: PropTypes.func,
 }
 

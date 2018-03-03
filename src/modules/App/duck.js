@@ -21,28 +21,30 @@ export const LOAD_HEADER_MENU = app.defineAction('LOAD_HEADER_MENU', [PENDING, S
 
 /* Reducer */
 const defaultState = fromJS({
-  menu: {
-    loading: true,
-    links: [],
+  menus: {
+    header: {
+      loading: true,
+      links: [],
+    },
   },
 })
 
 const reducer = handleActions({
   [LOAD_HEADER_MENU.SUCCESS]: (state, action) => (
     state
-      .setIn(['menu', 'loading'], false)
-      .setIn(['menu', 'links'], action.payload)
+      .setIn(['menus', 'header', 'loading'], false)
+      .setIn(['menus', 'header', 'links'], action.payload)
   ),
 }, defaultState)
 
 export default reducer
 
 /* Selectors */
-export const getApp = state => state.get('app')
+export const getApp = state => state.getIn(['resources', 'app'])
 
-export const makeGetMenu = () => createSelector(
+export const makeGetHeaderMenu = () => createSelector(
   getApp,
-  state => state.get('menu'),
+  state => state.getIn(['menus', 'header']),
 )
 
 /* Action Creators */
@@ -54,7 +56,7 @@ export function* loadHeaderMenuSaga() {
     const response = yield call(fetchMenuLocations, 'header-menu')
     yield put({
       type: LOAD_HEADER_MENU.SUCCESS,
-      payload: fromJS(response),
+      payload: fromJS(response.json),
     })
   } catch (err) {
     yield put({ type: LOAD_HEADER_MENU.ERROR, payload: { error: err } })

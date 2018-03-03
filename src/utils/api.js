@@ -36,6 +36,13 @@ export const fetchPosts = (page = 1) => (
   }).then(parseJSON)
 )
 
+export const fetchPost = (slug = '') => (
+  fetch(`${mainAPIURL}/dk_project?slug=${slug}`, {
+    headers,
+    method: 'GET',
+  }).then(parseJSON)
+)
+
 export const fetchMedia = (id = '') => (
   fetch(`${mainAPIURL}/media/${id}`, {
     headers,

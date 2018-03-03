@@ -5,12 +5,14 @@ import { createStructuredSelector } from 'reselect'
 import {
   getApp,
   loadHeaderMenu,
+  makeGetHeaderMenu,
 } from './duck'
 
 import App from './view'
 
 const mapStateToProps = createStructuredSelector({
   app: getApp,
+  headerMenu: makeGetHeaderMenu(),
 })
 
 const mapDispatchToProps = {
