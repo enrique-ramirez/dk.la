@@ -21,11 +21,12 @@ const plugins = [
       minifyURLs: true,
     },
     hash: false,
+    cache: true,
   }),
 ]
 
 module.exports = require('./webpack.common')({
-  devtool: undefined,
+  devtool: 'source-map',
 
   entry: [
     path.join(process.cwd(), 'src/app.js'),
@@ -34,7 +35,7 @@ module.exports = require('./webpack.common')({
   output: {
     filename: 'assets/[name].js',
     chunkFilename: 'assets/[name].chunk.js',
-    publicPath: '<?php echo get_template_directory_uri() ?>/',
+    publicPath: 'http://enrique-ramirez.com/dk/wp-content/themes/dk.la/',
   },
 
   plugins,

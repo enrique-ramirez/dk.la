@@ -1,0 +1,20 @@
+.wrapper {
+  padding: 0 0 50px;
+}
+
+.title {
+  font-size: 3rem;
+  line-height: 1em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.content {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}

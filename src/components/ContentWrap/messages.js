@@ -1,6 +1,6 @@
 import { defineMessages } from 'react-intl'
 
 export default defineMessages({
-  // "Copyright" notice.
-  copyright: '&copy; {year} David Kalani',
+  // "Back to projects" link.
+  backLink: 'Back to projects',
 })

@@ -35,7 +35,7 @@ class App extends React.Component { // eslint-disable-line react/require-optimiz
     return (
       <Switch>
         <Route
-          path="/projects/view/:slug"
+          path="/project/:slug"
           render={layoutRender(ViewPost, headerMenu)}
         />
 

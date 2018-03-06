@@ -10,6 +10,7 @@ import styles from './styles.css'
 
 import LogoWhite from './logo_white.svg'
 import LogoBlack from './logo_black.svg'
+import LogoWord from './logo_word.svg'
 
 function Header(props) {
   const {
@@ -20,17 +21,23 @@ function Header(props) {
 
   return (
     <header className={styles.header}>
-      <NavLink to="/">
+      <div>
+        <NavLink to="/">
+          {isSplash
+            ? <LogoWhite />
+            : <LogoBlack />
+          }
+        </NavLink>
         {isSplash
-          ? <LogoWhite />
-          : <LogoBlack />
+          ? null
+          : <h1><LogoWord /></h1>
         }
-      </NavLink>
+      </div>
 
       {isSplash
         ? null
         : (
-          <ul>
+          <ul className={styles.menu}>
             {links.map(link => (
               <li key={link.ID}>
                 <NavLink to={link.url}>

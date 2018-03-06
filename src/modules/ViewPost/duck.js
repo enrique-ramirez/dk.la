@@ -69,7 +69,7 @@ export const makeGetViewPost = () => createSelector(
 
     return fromJS({
       loading: state.getIn(['viewPost', 'loading']),
-      post: postResult,
+      post: postResult || {},
     })
   },
 )

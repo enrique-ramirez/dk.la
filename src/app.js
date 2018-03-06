@@ -12,9 +12,13 @@ import LanguageProvider from 'modules/LanguageProvider'
 
 import configureStore from 'store/configureStore'
 
+import { BASE_URL } from 'config'
+
 import { translationMessages } from './i18n'
 
-const history = createHistory()
+const history = createHistory({
+  basename: window.BASE_URL ? window.BASE_URL.match(/\/\/[^/]+\/([^.]+)/)[1] : BASE_URL,
+})
 const initialState = {}
 const store = configureStore(initialState, history)
 const MOUNT_NODE = document.getElementById('root')

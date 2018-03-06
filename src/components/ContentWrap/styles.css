@@ -1,0 +1,11 @@
+.wrapper {
+  align-items: end;
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.backLink {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}

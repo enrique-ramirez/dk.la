@@ -1,9 +1,9 @@
 import 'whatwg-fetch'
 import { DEVELOPMENT_API_URL } from 'config'
 
-const url = window.WPApiUrl || DEVELOPMENT_API_URL
-const mainAPIURL = `${url}/wp/v2`
-const menusAPIURL = `${url}/wp-api-menus/v2`
+const url = window.DEVELOPMENT_API_URL || DEVELOPMENT_API_URL
+const mainAPIURL = `${url}wp/v2`
+const menusAPIURL = `${url}wp-api-menus/v2`
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
@@ -30,14 +30,14 @@ export const fetchFrontPage = () => (
 )
 
 export const fetchPosts = (page = 1) => (
-  fetch(`${mainAPIURL}/dk_project?per_page=9&page=${page}`, {
+  fetch(`${mainAPIURL}/project?per_page=9&page=${page}`, {
     headers,
     method: 'GET',
   }).then(parseJSON)
 )
 
 export const fetchPost = (slug = '') => (
-  fetch(`${mainAPIURL}/dk_project?slug=${slug}`, {
+  fetch(`${mainAPIURL}/project?slug=${slug}`, {
     headers,
     method: 'GET',
   }).then(parseJSON)

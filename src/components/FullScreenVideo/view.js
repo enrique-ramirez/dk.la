@@ -11,7 +11,7 @@ function FullScreenVideo(props) {
 
   return (
     <figure className={styles.wrapper}>
-      <video autoPlay className={styles.video} loop>
+      <video autoPlay className={styles.video} loop playsInline>
         <source src={webmURL} type="video/webm" />
         <source src={mp4URL} type="video/mp4" />
       </video>

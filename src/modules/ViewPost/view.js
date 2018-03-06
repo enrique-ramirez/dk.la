@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { is } from 'immutable'
 import { Helmet } from 'react-helmet'
 
-import ImageGallery from 'components/ImageGallery'
+import Post from 'components/Post'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class ViewPost extends React.Component {
@@ -31,16 +31,13 @@ class ViewPost extends React.Component {
       viewPost,
     } = this.props
 
-    const images = viewPost.getIn(['post', 'acf', 'gallery'])
-
     return (
       <section>
         <Helmet>
           <title>{viewPost.getIn(['post', 'title', 'rendered'])}</title>
         </Helmet>
 
-        {viewPost.getIn(['post', 'title', 'rendered'])}
-        <ImageGallery images={images ? images.toJS() : []} />
+        <Post isLoading={viewPost.get('loading')} post={viewPost.get('post').toJS()} />
       </section>
     )
   }

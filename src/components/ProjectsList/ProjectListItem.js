@@ -58,7 +58,7 @@ class ProjectListItem extends React.PureComponent {
 
   render() {
     const { post } = this.props
-    const url = `/projects/view/${post.slug}`
+    const url = `/project/${post.slug}`
     const {
       thumbnail_webm: webm,
       thumbnail_mp4: mp4,
