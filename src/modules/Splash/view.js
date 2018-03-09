@@ -12,6 +12,14 @@ import styles from './styles.css'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Splash extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      scrolled: false,
+    }
+  }
+
   componentDidMount() {
     const {
       loadSplash,
@@ -21,12 +29,46 @@ class Splash extends React.Component {
     if (splash.get('loading')) {
       loadSplash()
     }
+
+    window.addEventListener('mousewheel', this.handleScroll)
+    window.addEventListener('DOMMouseScroll', this.handleScroll)
   }
 
   shouldComponentUpdate(nextProps) {
     const { props } = this
 
     return !is(nextProps.splash, props.splash)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousewheel', this.handleScroll)
+    window.removeEventListener('DOMMouseScroll', this.handleScroll)
+  }
+
+  handleScroll() {
+    const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight
+    const {
+      body,
+      documentElement: html,
+    } = document
+
+    const { state } = this
+
+    const docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight,
+    )
+    const windowBottom = windowHeight + window.pageYOffset
+
+    if (windowBottom >= docHeight && !state.scrolled) {
+      // eslint-disable-next-line react/no-set-state
+      this.setState({
+        scrolled: true,
+      })
+    }
   }
 
   render() {
