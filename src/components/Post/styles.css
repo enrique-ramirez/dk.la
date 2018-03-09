@@ -9,6 +9,10 @@
   text-transform: uppercase;
 }
 
+.loading {
+  margin: 16rem auto;
+}
+
 .content {
   font-size: 0.75rem;
   font-weight: 400;
