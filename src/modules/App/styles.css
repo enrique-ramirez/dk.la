@@ -37,6 +37,24 @@ body {
   font-weight: 900;
 }
 
+:global(.fade-enter) {
+  opacity: 0;
+}
+
+:global(.fade-exit) {
+  display: none;
+}
+
+:global(.fade-enter.fade-enter-active) {
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+}
+
+:global(.fade-enter.fade-exit-active) {
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+}
+
 :global(#root) {
   height: 100%;
   width: 100%;
