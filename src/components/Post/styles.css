@@ -1,9 +1,5 @@
-.wrapper {
-  padding: 0 0 50px;
-}
-
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 1em;
   margin: 0;
   text-transform: uppercase;
@@ -21,4 +17,16 @@
 
 .content p:last-child {
   margin-bottom: 0;
+}
+
+@media all and (min-width: 680px) {
+  .title {
+    font-size: 3rem;
+  }
+}
+
+@media all and (min-width: 920px) {
+  .wrapper {
+    padding: 0 0 50px;
+  }
 }

@@ -8,13 +8,12 @@
 }
 
 .header svg {
-  height: 75px;
-  width: 75px;
+  height: 90px;
+  width: 90px;
 }
 
 .header h1 {
-  display: inline;
-  margin-left: 25px;
+  display: none;
 }
 
 .header h1 svg {
@@ -23,16 +22,14 @@
 }
 
 .menu {
-  align-items: end;
-  display: grid;
   font-size: 0.875rem;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
   text-align: right;
   text-transform: uppercase;
   vertical-align: bottom;
+  white-space: nowrap;
 }
 
 .menu a {
@@ -43,4 +40,22 @@
 .menu a:hover,
 .menu :global(a.active) {
   text-decoration: underline;
+}
+
+@media all and (min-width: 1060px) {
+  .header svg {
+    height: 75px;
+    width: 75px;
+  }
+
+  .header h1 {
+    display: inline;
+    margin-left: 25px;
+  }
+
+  .menu {
+    align-items: end;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  }
 }
