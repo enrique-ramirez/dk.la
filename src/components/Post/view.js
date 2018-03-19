@@ -5,7 +5,7 @@ import get from 'lodash.get'
 import ContentWrap from 'components/ContentWrap'
 import ImageGallery from 'components/ImageGallery'
 import Spinner from 'components/Spinner'
-import VimeoVideo from 'components/VimeoVideo'
+import Video from 'components/Video'
 
 import styles from './styles.css'
 
@@ -27,7 +27,7 @@ function Post(props) {
   return isLoading ? <div className={styles.loading}><Spinner /></div> : (
     <section>
       {video
-        ? <VimeoVideo title={post.slug} url={video} />
+        ? <Video title={post.slug} url={video} />
         : null
       }
 
