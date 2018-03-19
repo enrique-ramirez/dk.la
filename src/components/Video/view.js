@@ -11,7 +11,7 @@ function parseVideo(url) {
 
   if (RegExp.$3.indexOf('youtu') > -1) {
     type = 'youtube'
-    src = `//www.youtube.com/embed/${RegExp.$6}`
+    src = `//www.youtube.com/embed/${RegExp.$6}?rel=0&amp;showinfo=0&amp;autoplay=1`
   } else if (RegExp.$3.indexOf('vimeo') > -1) {
     type = 'vimeo'
     src = `//player.vimeo.com/video/${RegExp.$6}?autoplay=1`
