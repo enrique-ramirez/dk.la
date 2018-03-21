@@ -17,28 +17,33 @@ import Layout from 'components/Layout'
 import './styles.css'
 
 // eslint-disable-next-line react/display-name
-const layoutRender = (component, headerMenu) => route => (
-  <Layout component={component} headerMenu={headerMenu.toJS()} route={route} />
+const layoutRender = (component, headerMenu, footerMenu) => route => (
+  <Layout
+    component={component}
+    footerMenu={footerMenu.toJS()}
+    headerMenu={headerMenu.toJS()}
+    route={route}
+  />
 )
 
 // eslint-disable-next-line react/display-name
-const render = headerMenu => route => (
+const render = (headerMenu, footerMenu) => route => (
   <TransitionGroup>
     <CSSTransition key={route.location.key} classNames="fade" timeout={2000}>
       <Switch location={route.location}>
         <Route
           path="/project/:slug"
-          render={layoutRender(ViewPost, headerMenu)}
+          render={layoutRender(ViewPost, headerMenu, footerMenu)}
         />
 
         <Route
           path="/projects"
-          render={layoutRender(Projects, headerMenu)}
+          render={layoutRender(Projects, headerMenu, footerMenu)}
         />
 
         <Route
           path="/"
-          render={layoutRender(Splash, headerMenu)}
+          render={layoutRender(Splash, headerMenu, footerMenu)}
         />
       </Switch>
     </CSSTransition>
@@ -48,23 +53,28 @@ const render = headerMenu => route => (
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component { // eslint-disable-line react/require-optimization
   componentDidMount() {
-    const { loadHeaderMenu } = this.props
+    const { loadHeaderMenu, loadFooterMenu } = this.props
+
     loadHeaderMenu()
+    loadFooterMenu()
   }
 
   render() {
     const {
       headerMenu,
+      footerMenu,
     } = this.props
 
     return (
-      <Route render={render(headerMenu)} />
+      <Route render={render(headerMenu, footerMenu)} />
     )
   }
 }
 
 App.propTypes = {
+  footerMenu: ImmutablePropTypes.map, // eslint-disable-line react/no-typos
   headerMenu: ImmutablePropTypes.map, // eslint-disable-line react/no-typos
+  loadFooterMenu: PropTypes.func,
   loadHeaderMenu: PropTypes.func,
 }
 

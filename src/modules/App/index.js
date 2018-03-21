@@ -5,7 +5,9 @@ import { createStructuredSelector } from 'reselect'
 import {
   getApp,
   loadHeaderMenu,
+  loadFooterMenu,
   makeGetHeaderMenu,
+  makeGetFooterMenu,
 } from './duck'
 
 import App from './view'
@@ -13,10 +15,12 @@ import App from './view'
 const mapStateToProps = createStructuredSelector({
   app: getApp,
   headerMenu: makeGetHeaderMenu(),
+  footerMenu: makeGetFooterMenu(),
 })
 
 const mapDispatchToProps = {
   loadHeaderMenu,
+  loadFooterMenu,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

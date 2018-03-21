@@ -9,6 +9,7 @@ import styles from './styles.css'
 function Layout(props) {
   const {
     component: Component,
+    footerMenu,
     headerMenu,
     route,
   } = props
@@ -17,13 +18,14 @@ function Layout(props) {
     <div className={styles.container}>
       <Header links={headerMenu.links} />
       <Component route={route} />
-      <Footer />
+      <Footer links={footerMenu.links} />
     </div>
   )
 }
 
 Layout.propTypes = {
   component: PropTypes.func,
+  footerMenu: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   headerMenu: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   route: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 }
