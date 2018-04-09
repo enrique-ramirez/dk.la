@@ -33,7 +33,7 @@ function Video(props) {
   const videoData = parseVideo(url)
 
   return (
-    <div className={styles.wrapper}>
+    <figure className={styles.wrapper}>
       <iframe
         allow="autoplay; encrypted-media"
         allowFullScreen
@@ -41,15 +41,15 @@ function Video(props) {
         src={videoData.src}
         title={title}
       />
-    </div>
+    </figure>
   )
 }
 
 Video.propTypes = {
   /** Video title */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   /** Video URL */
-  url: PropTypes.string,
+  url: PropTypes.string.isRequired,
 }
 
 export default Video

@@ -27,7 +27,7 @@ const entities = (state = fromJS({}), action) => {
   switch (action.type) {
     default: {
       if (action.entities) {
-        return state.mergeDeep(action.entities)
+        return state.merge(action.entities)
       }
 
       return state

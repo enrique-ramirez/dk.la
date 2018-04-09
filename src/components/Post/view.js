@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash.get'
+import { Link } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
 
 import ContentWrap from 'components/ContentWrap'
 import ImageGallery from 'components/ImageGallery'
 import Spinner from 'components/Spinner'
-import Video from 'components/Video'
+import VideoGallery from 'components/VideoGallery'
 
 import styles from './styles.css'
+import messages from './messages'
 
 function Post(props) {
   const {
@@ -16,7 +19,9 @@ function Post(props) {
   } = props
 
   const images = get(post, 'acf.gallery', [])
-  const video = get(post, 'acf.video_link', '')
+  const videos = get(post, 'acf.video_links', undefined)
+  const stills = get(post, 'acf.photo_stills_post.post_name', '')
+  const stillsURL = stills ? `/project/${stills}` : ''
   const content = {
     __html: get(post, 'content.rendered', ''),
   }
@@ -26,14 +31,24 @@ function Post(props) {
 
   return isLoading ? <div className={styles.loading}><Spinner /></div> : (
     <section>
-      {video
-        ? <Video title={post.slug} url={video} />
+      {videos
+        ? <VideoGallery videos={videos} />
         : null
       }
 
       <ContentWrap className={styles.wrapper} hasBack>
         <h1 className={styles.title} dangerouslySetInnerHTML={title} />
         <div className={styles.content} dangerouslySetInnerHTML={content} />
+        {stillsURL
+          ? (
+            <div className={styles.stills}>
+              <Link to={stillsURL}>
+                <FormattedMessage {...messages.productionStills} />
+              </Link>
+            </div>
+          )
+          : null
+        }
       </ContentWrap>
 
       {images.length

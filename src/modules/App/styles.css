@@ -30,7 +30,7 @@ body {
 }
 
 :global(p) {
-  margin: 50px 0;
+  margin: 2em 0;
 }
 
 :global(strong) {
