@@ -1,9 +1,10 @@
 import { createAction, handleActions } from 'redux-actions'
-import { takeLatest, put, call } from 'redux-saga/effects'
+import { takeLatest, put, call, all } from 'redux-saga/effects'
 import { createSelector } from 'reselect'
 import { fromJS, Map } from 'immutable'
 import { normalize, denormalize } from 'normalizr'
 import { LOCATION_CHANGE } from 'react-router-redux'
+import get from 'lodash.get'
 
 import {
   SUCCESS,
@@ -11,17 +12,20 @@ import {
   PENDING,
   domain,
 } from 'store/constants'
-
 import post from 'store/schemas/post'
+import video from 'store/schemas/video'
+import parseVideoURL from 'utils/parseVideoURL'
 
 import {
   fetchPost,
+  fetchVimeoData,
 } from 'utils/api'
 
 /* Actions */
 const viewPost = domain.defineAction('viewPost')
 
 export const LOAD_POST = viewPost.defineAction('LOAD_POST', [PENDING, SUCCESS, ERROR])
+export const LOAD_VIDEO = viewPost.defineAction('LOAD_VIDEO', [PENDING, SUCCESS, ERROR])
 
 /* Reducer */
 const defaultState = fromJS({
@@ -78,12 +82,44 @@ export const makeGetViewPost = () => createSelector(
 export const loadPost = createAction(LOAD_POST.ACTION)
 
 /* Side Effects */
+export function* loadVideoSaga(videoData) {
+  try {
+    const data = { ...videoData }
+
+    if (data.type === 'vimeo') {
+      const response = yield call(fetchVimeoData, data.id)
+      data.thumbnail = response.json[0].thumbnail_medium
+    }
+
+    const normalized = yield call(normalize, data, video)
+
+    yield put({
+      type: LOAD_VIDEO.SUCCESS,
+      payload: fromJS(normalized.result),
+      entities: fromJS(normalized.entities),
+    })
+  } catch (err) {
+    yield put({ type: LOAD_VIDEO.ERROR, payload: { error: err, videoData } })
+  }
+}
+
 export function* loadPostSaga(action) {
   try {
     // Get POST
     const response = yield call(fetchPost, action.payload)
+    const data = { ...response.json[0] }
 
-    const normalized = yield call(normalize, response.json[0], post)
+    const videos = yield call(get, data, 'acf.video_links', [])
+    const parsedVideos = videos.map(({ video_link: url }) => parseVideoURL(url))
+
+    if (videos.length) {
+      data.acf.videos = parsedVideos.map(({ id }) => id)
+    }
+
+    yield all(parsedVideos.map(videoData => call(loadVideoSaga, videoData)))
+
+    const normalized = yield call(normalize, data, post)
+
     yield put({
       type: LOAD_POST.SUCCESS,
       payload: Map({

@@ -1,4 +1,27 @@
 <?php
+  // Security stuff
+  add_action('rest_api_init', function() {
+     /* unhook default function */
+     remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+
+     /* then add your own filter */
+     add_filter('rest_pre_serve_request', function( $value ) {
+      $origin = get_http_origin();
+      $my_sites = array('http://localhost:8080',);
+      if ( in_array( $origin, $my_sites ) ) {
+        header( 'Access-Control-Allow-Origin: ' . esc_url_raw( $origin ) );
+      } else {
+        header( 'Access-Control-Allow-Origin: ' . esc_url_raw( site_url() ) );
+      }
+      header( 'Access-Control-Allow-Methods: GET' );
+
+      return $value;
+     });
+  }, 15);
+
+  // Prevent htaccess updates
+  add_filter('flush_rewrite_rules_hard','__return_false');
+
   // Add thumbnails support
   add_theme_support('post-thumbnails');
 
@@ -115,7 +138,7 @@
         array(
           'param' => 'post_type',
           'operator' => '==',
-          'value' => 'post',
+          'value' => 'project',
         ),
       ),
     ),

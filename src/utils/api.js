@@ -9,6 +9,11 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
+const addParameterToURL = (URL, param) => {
+  const char = URL.split('?')[1] ? '&' : '?'
+  return `${URL}${char}${param}`
+}
+
 const parseJSON = async (response) => {
   const pagination = {
     total: response.headers.get('X-WP-Total'),
@@ -29,15 +34,22 @@ export const fetchFrontPage = () => (
   }).then(parseJSON)
 )
 
+export const fetchPage = (slug = '') => (
+  fetch(addParameterToURL(`${mainAPIURL}/pages`, `slug=${slug}`), {
+    headers,
+    method: 'GET',
+  }).then(parseJSON)
+)
+
 export const fetchPosts = (page = 1) => (
-  fetch(`${mainAPIURL}/project?per_page=9&page=${page}`, {
+  fetch(addParameterToURL(`${mainAPIURL}/project`, `per_page=9&page=${page}`), {
     headers,
     method: 'GET',
   }).then(parseJSON)
 )
 
 export const fetchPost = (slug = '') => (
-  fetch(`${mainAPIURL}/project?slug=${slug}`, {
+  fetch(addParameterToURL(`${mainAPIURL}/project`, `slug=${slug}`), {
     headers,
     method: 'GET',
   }).then(parseJSON)
@@ -67,6 +79,12 @@ export const fetchMenuLocations = (location = '') => (
 export const fetchCategories = (id = '') => (
   fetch(`${mainAPIURL}/categories/${id}`, {
     headers,
+    method: 'GET',
+  }).then(parseJSON)
+)
+
+export const fetchVimeoData = (id = '') => (
+  fetch(`//vimeo.com/api/v2/video/${id}.json`, {
     method: 'GET',
   }).then(parseJSON)
 )

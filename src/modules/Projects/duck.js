@@ -17,6 +17,7 @@ import media from 'store/schemas/media'
 import category from 'store/schemas/category'
 
 import {
+  fetchPage,
   fetchPosts,
   fetchMedia,
   fetchCategories,
@@ -36,8 +37,11 @@ export const LOAD_CATEGORY = projects.defineAction('LOAD_CATEGORY', [PENDING, SU
 /* Reducer */
 const defaultState = fromJS({
   loading: true,
-  page: 1,
-  totalPages: 1,
+  page: undefined,
+  pagination: {
+    page: 1,
+    totalPages: 1,
+  },
   posts: [],
 })
 
@@ -46,8 +50,9 @@ const reducer = handleActions({
     state
       .set('loading', false)
       .set('posts', state.get('posts').concat(action.payload.get('posts')))
-      .set('totalPages', parseInt(action.payload.getIn(['pagination', 'totalPages']), 10))
       .set('page', action.payload.get('page'))
+      .setIn(['pagination', 'totalPages'], parseInt(action.payload.getIn(['pagination', 'totalPages']), 10))
+      .setIn(['pagination', 'page'], action.payload.getIn(['pagination', 'page']))
   ),
 }, defaultState)
 
@@ -84,8 +89,8 @@ export const makeGetProjects = () => createSelector(
       posts: postsResult,
       page: pageResult,
       pagination: {
-        page: state.getIn(['projects', 'page']),
-        totalPages: state.getIn(['projects', 'totalPages']),
+        page: state.getIn(['projects', 'pagination', 'page']),
+        totalPages: state.getIn(['projects', 'pagination', 'totalPages']),
       },
     })
   },
@@ -127,26 +132,30 @@ export function* loadCategorySaga(id) {
 
 export function* loadPostsSaga(action) {
   try {
+    // Get Page
+    const responsePage = yield call(fetchPage, 'posts')
+    const normalizedPage = yield call(normalize, responsePage.json[0], page)
+
     // Get POSTS
-    const response = yield call(fetchPosts, action.payload)
+    const posts = yield call(fetchPosts, action.payload)
 
     // Get featured media
-    const featuredMediaIds = response.json.map(item => item.featured_media)
+    const featuredMediaIds = posts.json.map(item => item.featured_media).filter(Number)
     yield all(featuredMediaIds.map(id => call(loadMediaSaga, id)))
 
     // get categories
-    const categoriesIds = uniqflat(response.json.map(item => item.categories))
+    const categoriesIds = uniqflat(posts.json.map(item => item.categories))
     yield all(categoriesIds.map(id => call(loadCategorySaga, id)))
 
-    const normalized = yield call(normalize, response.json, [post])
+    const normalized = yield call(normalize, posts.json, [post])
     yield put({
       type: LOAD_POSTS.SUCCESS,
       payload: fromJS({
         posts: normalized.result,
-        pagination: response.pagination,
-        page: action.payload || 1,
+        pagination: { ...posts.pagination, page: action.payload || 1 },
+        page: normalizedPage.result,
       }),
-      entities: fromJS(normalized.entities),
+      entities: fromJS({ ...normalized.entities, ...normalizedPage.entities }),
     })
   } catch (err) {
     yield put({ type: LOAD_POSTS.ERROR, payload: { error: err } })

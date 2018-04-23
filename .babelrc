@@ -4,8 +4,8 @@
     "transform-object-rest-spread",
     "react-hot-loader/babel",
     ["react-intl-auto", {
-      removePrefix: 'src',
-      extractComments: true
+      "removePrefix": "src",
+      "extractComments": true
     }],
     "react-intl-id-hash",
     ["react-intl", {

@@ -17,7 +17,7 @@
     }],
     "max-empty-lines": 2,
     "media-feature-name-no-vendor-prefix": true,
-    "order/properties-order": [["composes"], {unspecified: "bottomAlphabetical"}],
+    "order/properties-order": [["composes"], {"unspecified": "bottomAlphabetical"}],
     "plugin/declaration-block-no-ignored-properties": true,
     "property-no-unknown": [ true, {
       "ignoreProperties": ["composes"]

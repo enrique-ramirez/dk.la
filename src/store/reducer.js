@@ -27,7 +27,10 @@ const entities = (state = fromJS({}), action) => {
   switch (action.type) {
     default: {
       if (action.entities) {
-        return state.merge(action.entities)
+        return action.entities.reduce(
+          (aggr, value, key) => aggr.mergeIn([key], value),
+          state,
+        )
       }
 
       return state

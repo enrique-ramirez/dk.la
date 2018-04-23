@@ -5,6 +5,7 @@ import { is } from 'immutable'
 import { Helmet } from 'react-helmet'
 
 import Post from 'components/Post'
+import htmlDecode from 'utils/htmlDecode'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class ViewPost extends React.Component {
@@ -34,7 +35,7 @@ class ViewPost extends React.Component {
     return (
       <section>
         <Helmet>
-          <title>{viewPost.getIn(['post', 'title', 'rendered'])}</title>
+          <title>{htmlDecode(viewPost.getIn(['post', 'title', 'rendered']))}</title>
         </Helmet>
 
         <Post isLoading={viewPost.get('loading')} post={viewPost.get('post').toJS()} />

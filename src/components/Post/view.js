@@ -19,7 +19,7 @@ function Post(props) {
   } = props
 
   const images = get(post, 'acf.gallery', [])
-  const videos = get(post, 'acf.video_links', undefined)
+  const videos = get(post, 'acf.videos', undefined)
   const stills = get(post, 'acf.photo_stills_post.post_name', '')
   const stillsURL = stills ? `/project/${stills}` : ''
   const content = {

@@ -1,0 +1,20 @@
+.thumbnails {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+.thumbnail {
+  background: red;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 14px 34px 0;
+  overflow: hidden;
+  width: 168px;
+}
+
+.thumbnail img {
+  display: block;
+  max-width: 100%;
+}
