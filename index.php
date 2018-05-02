@@ -17,5 +17,5 @@
   <body>
     <div id="root"></div>
     <?php wp_footer(); ?>
-  <script type="text/javascript" src="http://enrique-ramirez.com/dk/wp-content/themes/dk.la/assets/vendor.js"></script><script type="text/javascript" src="http://enrique-ramirez.com/dk/wp-content/themes/dk.la/assets/main.js"></script></body>
+  <script type="text/javascript" src="http://enrique-ramirez.com/dkla/wp-content/themes/dk.la/assets/vendor.js"></script><script type="text/javascript" src="http://enrique-ramirez.com/dkla/wp-content/themes/dk.la/assets/main.js"></script></body>
 </html>

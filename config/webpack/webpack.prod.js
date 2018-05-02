@@ -35,7 +35,7 @@ module.exports = require('./webpack.common')({
   output: {
     filename: 'assets/[name].js',
     chunkFilename: 'assets/[name].chunk.js',
-    publicPath: 'http://enrique-ramirez.com/dk/wp-content/themes/dk.la/',
+    publicPath: 'http://enrique-ramirez.com/dkla/wp-content/themes/dk.la/',
   },
 
   plugins,

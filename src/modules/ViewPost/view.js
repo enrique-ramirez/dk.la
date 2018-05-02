@@ -29,6 +29,7 @@ class ViewPost extends React.Component {
 
   render() {
     const {
+      changeVideo,
       viewPost,
     } = this.props
 
@@ -38,13 +39,20 @@ class ViewPost extends React.Component {
           <title>{htmlDecode(viewPost.getIn(['post', 'title', 'rendered']))}</title>
         </Helmet>
 
-        <Post isLoading={viewPost.get('loading')} post={viewPost.get('post').toJS()} />
+        <Post
+          currentVideo={viewPost.get('currentVideo') ? viewPost.get('currentVideo').toJS() : undefined}
+          handleChangeVideo={changeVideo}
+          isLoading={viewPost.get('loading')}
+          post={viewPost.get('post').toJS()}
+        />
       </section>
     )
   }
 }
 
 ViewPost.propTypes = {
+  /** Function to execute when clicking on video thumbnails */
+  changeVideo: PropTypes.func,
   /** Function to request viewPost page. */
   loadPost: PropTypes.func,
   /** Route state */

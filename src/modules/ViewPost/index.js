@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 
 import {
+  changeVideo,
   loadPost,
   makeGetViewPost,
 } from './duck'
@@ -13,6 +14,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = {
+  changeVideo,
   loadPost,
 }
 

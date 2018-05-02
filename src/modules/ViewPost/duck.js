@@ -26,11 +26,13 @@ const viewPost = domain.defineAction('viewPost')
 
 export const LOAD_POST = viewPost.defineAction('LOAD_POST', [PENDING, SUCCESS, ERROR])
 export const LOAD_VIDEO = viewPost.defineAction('LOAD_VIDEO', [PENDING, SUCCESS, ERROR])
+export const CHANGE_VIDEO = viewPost.defineAction('CHANGE_VIDEO', [SUCCESS])
 
 /* Reducer */
 const defaultState = fromJS({
   loading: true,
   post: 0,
+  currentVideo: undefined,
 })
 
 const reducer = handleActions({
@@ -38,6 +40,10 @@ const reducer = handleActions({
     state
       .set('loading', false)
       .set('post', action.payload.get('post'))
+  ),
+  [CHANGE_VIDEO.SUCCESS]: (state, action) => (
+    state
+      .set('currentVideo', action.payload)
   ),
   [LOCATION_CHANGE]: () => (
     defaultState
@@ -69,17 +75,27 @@ export const getViewPost = (state) => {
 export const makeGetViewPost = () => createSelector(
   getViewPost,
   (state) => {
-    const postResult = denormalize(state.getIn(['viewPost', 'post']), post, state.get('entities'))
-
-    return fromJS({
+    const postResult = denormalize(state.getIn(['viewPost', 'post']), post, state.get('entities')) || Map({})
+    const result = {
       loading: state.getIn(['viewPost', 'loading']),
       post: postResult || {},
-    })
+    }
+
+    if (postResult.getIn(['acf', 'videos'])) {
+      const currentVideo = state.getIn(['viewPost', 'currentVideo'])
+        ? denormalize(state.getIn(['viewPost', 'currentVideo']), video, state.get('entities'))
+        : postResult.getIn(['acf', 'videos', 0])
+
+      result.currentVideo = currentVideo
+    }
+
+    return fromJS(result)
   },
 )
 
 /* Action Creators */
 export const loadPost = createAction(LOAD_POST.ACTION)
+export const changeVideo = createAction(CHANGE_VIDEO.SUCCESS)
 
 /* Side Effects */
 export function* loadVideoSaga(videoData) {
@@ -124,6 +140,7 @@ export function* loadPostSaga(action) {
       type: LOAD_POST.SUCCESS,
       payload: Map({
         post: normalized.result,
+        currentVideo: undefined,
       }),
       entities: fromJS(normalized.entities),
     })

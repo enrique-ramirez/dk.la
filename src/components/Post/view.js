@@ -14,6 +14,8 @@ import messages from './messages'
 
 function Post(props) {
   const {
+    currentVideo,
+    handleChangeVideo,
     isLoading,
     post,
   } = props
@@ -32,7 +34,13 @@ function Post(props) {
   return isLoading ? <div className={styles.loading}><Spinner /></div> : (
     <section>
       {videos
-        ? <VideoGallery videos={videos} />
+        ? (
+          <VideoGallery
+            currentVideo={currentVideo}
+            handleChangeVideo={handleChangeVideo}
+            videos={videos}
+          />
+        )
         : null
       }
 
@@ -62,6 +70,10 @@ function Post(props) {
 }
 
 Post.propTypes = {
+  /** Current Video */
+  currentVideo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  /** Function to execute when clicking on video thumbnails */
+  handleChangeVideo: PropTypes.func.isRequired,
   /** Post is loading */
   isLoading: PropTypes.bool,
   /** Post data */

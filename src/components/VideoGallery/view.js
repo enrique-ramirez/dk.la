@@ -2,21 +2,36 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Video from 'components/Video'
+import videoType from 'types/video'
 
 import Thumb from './thumb'
 import styles from './styles.css'
 
 function VideoGallery(props) {
-  const { videos } = props
+  const {
+    currentVideo,
+    handleChangeVideo,
+    videos,
+  } = props
 
   return (
     <aside>
-      <Video url={videos[0].src} />
+      <Video url={currentVideo.src} />
 
       {videos.length > 1
         ? (
           <ul className={styles.thumbnails}>
-            {videos.map(({ thumbnail }) => <Thumb key={thumbnail} url={thumbnail} />)}
+            {videos.map(({ id, thumbnail }) => {
+              const _handleClick = () => handleChangeVideo(id)
+
+              return (
+                <Thumb
+                  key={thumbnail}
+                  handleClick={_handleClick}
+                  url={thumbnail}
+                />
+              )
+            })}
           </ul>
         )
         : null
@@ -26,9 +41,12 @@ function VideoGallery(props) {
 }
 
 VideoGallery.propTypes = {
-  videos: PropTypes.arrayOf(PropTypes.shape({
-    video_link: PropTypes.string,
-  })),
+  /** Current video displayed on big screen */
+  currentVideo: videoType,
+  /** Function to execute when clicking on video thumbnails */
+  handleChangeVideo: PropTypes.func.isRequired,
+  /** Videos array */
+  videos: PropTypes.arrayOf(videoType),
 }
 
 export default VideoGallery
