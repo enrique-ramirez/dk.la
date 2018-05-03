@@ -4,11 +4,12 @@ import PropTypes from 'prop-types'
 import styles from './styles.css'
 
 function Thumb(props) {
-  const { handleClick, url } = props
+  const { handleClick, className, url } = props
+  const classes = `${styles.thumbnail} ${className}`
 
   return (
     <li
-      className={styles.thumbnail}
+      className={classes}
       onClick={handleClick}
       role="button"
     >
@@ -18,6 +19,8 @@ function Thumb(props) {
 }
 
 Thumb.propTypes = {
+  /** Classnames */
+  className: PropTypes.string,
   /** Handle click function */
   handleClick: PropTypes.func,
   /** Video URL */

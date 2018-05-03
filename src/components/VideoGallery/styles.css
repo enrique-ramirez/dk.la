@@ -10,11 +10,33 @@
   cursor: pointer;
   display: inline-block;
   margin: 0 14px 34px 0;
-  overflow: hidden;
+  opacity: 0.5;
+  overflow: visible;
   width: 168px;
 }
 
 .thumbnail img {
   display: block;
   max-width: 100%;
+}
+
+.current {
+  opacity: 1;
+  position: relative;
+  top: -5px;
+}
+
+.current::after {
+  border-bottom: 7px solid #000;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  content: "";
+  display: block;
+  height: 0;
+  left: 50%;
+  margin-left: -4px;
+  position: absolute;
+  top: -7px;
+  width: 0;
+  z-index: 9999;
 }

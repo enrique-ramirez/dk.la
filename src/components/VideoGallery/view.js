@@ -23,10 +23,12 @@ function VideoGallery(props) {
           <ul className={styles.thumbnails}>
             {videos.map(({ id, thumbnail }) => {
               const _handleClick = () => handleChangeVideo(id)
+              const className = id === currentVideo.id ? styles.current : ''
 
               return (
                 <Thumb
                   key={thumbnail}
+                  className={className}
                   handleClick={_handleClick}
                   url={thumbnail}
                 />
