@@ -8,6 +8,7 @@ import ContentWrap from 'components/ContentWrap'
 import ImageGallery from 'components/ImageGallery'
 import Spinner from 'components/Spinner'
 import VideoGallery from 'components/VideoGallery'
+import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
 
 import styles from './styles.css'
 import messages from './messages'
@@ -33,6 +34,7 @@ function Post(props) {
 
   return isLoading ? <div className={styles.loading}><Spinner /></div> : (
     <section>
+      <ScrollToTopOnMount />
       {videos
         ? (
           <VideoGallery
