@@ -1,10 +1,13 @@
 .image {
+  display: inline-block;
   margin: 0;
+  min-width: 50%;
   padding: 0;
   text-align: center;
 }
 
 .image img {
+  height: 80vh;
   max-width: 100%;
 }
 
@@ -17,4 +20,9 @@
   line-height: 1;
   padding: 50px 0;
   text-transform: uppercase;
+}
+
+.horizontal {
+  height: auto;
+  width: 100%;
 }

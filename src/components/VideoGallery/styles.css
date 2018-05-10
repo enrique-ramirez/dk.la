@@ -6,12 +6,16 @@
 }
 
 .thumbnail {
-  background: red;
+  background: #eee;
+  border: 2px solid #fff;
   cursor: pointer;
   display: inline-block;
   margin: 0 14px 34px 0;
   opacity: 0.5;
   overflow: visible;
+  position: relative;
+  top: 0;
+  transition: all 0.2s ease-in-out;
   width: 168px;
 }
 
@@ -21,9 +25,9 @@
 }
 
 .current {
+  border: 2px solid #000;
   opacity: 1;
-  position: relative;
-  top: -5px;
+  top: -10px;
 }
 
 .current::after {

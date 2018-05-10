@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import ContentWrap from 'components/ContentWrap'
 
+import Image from './image'
 import styles from './styles.css'
 
 function ImageGallery(props) {
@@ -14,7 +15,7 @@ function ImageGallery(props) {
     <section>
       {images.map(image => (
         <figure key={image.id} className={styles.image}>
-          <img alt={image.alt} src={image.url} />
+          <Image image={image} />
           <ContentWrap tagName="figcaption">
             {image.title}
           </ContentWrap>
