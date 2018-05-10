@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ContentWrap from 'components/ContentWrap'
-
 import Image from './image'
-import styles from './styles.css'
 
 function ImageGallery(props) {
   const {
@@ -14,12 +11,7 @@ function ImageGallery(props) {
   return (
     <section>
       {images.map(image => (
-        <figure key={image.id} className={styles.image}>
-          <Image image={image} />
-          <ContentWrap tagName="figcaption">
-            {image.title}
-          </ContentWrap>
-        </figure>
+        <Image key={image.id} image={image} />
       ))}
     </section>
   )

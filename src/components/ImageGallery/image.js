@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import ContentWrap from 'components/ContentWrap'
+
 import styles from './styles.css'
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -24,7 +26,7 @@ class Image extends React.Component {
 
   handleLoad(event) {
     const img = event.target
-    const isHorizontal = img.width > img.height
+    const isHorizontal = img.naturalWidth > img.naturalHeight
 
     // eslint-disable-next-line react/no-set-state
     this.setState({
@@ -37,13 +39,21 @@ class Image extends React.Component {
     const { image } = this.props
     const { horizontal } = this.state
 
+    let classes = styles.image
+
+    classes = horizontal ? `${classes} ${styles.horizontal}` : classes
+
     return (
-      <img
-        alt={image.alt}
-        className={horizontal ? styles.horizontal : ''}
-        onLoad={this.handleLoad}
-        src={image.url}
-      />
+      <figure key={image.id} className={classes}>
+        <img
+          alt={image.alt}
+          onLoad={this.handleLoad}
+          src={image.url}
+        />
+        <ContentWrap tagName="figcaption">
+          {image.title}
+        </ContentWrap>
+      </figure>
     )
   }
 }
