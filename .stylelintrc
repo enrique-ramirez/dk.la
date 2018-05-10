@@ -31,7 +31,7 @@
     "selector-pseudo-class-no-unknown": [ true, {
       "ignorePseudoClasses": ["global"]
     } ],
-    "unit-whitelist": ["em", "rem", "%", "px", "fr", "deg", "s", "ms"],
+    "unit-whitelist": ["em", "rem", "%", "px", "fr", "deg", "s", "ms", "vh", "vw"],
     "value-no-vendor-prefix": true
   }
 }
