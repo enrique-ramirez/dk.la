@@ -22,7 +22,7 @@ function Header(props) {
   return (
     <header className={styles.header}>
       <div>
-        <NavLink to="/">
+        <NavLink to="/projects">
           {isSplash
             ? <LogoWhite />
             : <LogoBlack />
