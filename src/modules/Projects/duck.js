@@ -49,7 +49,7 @@ const reducer = handleActions({
   [LOAD_POSTS.SUCCESS]: (state, action) => (
     state
       .set('loading', false)
-      .set('posts', state.get('posts').concat(action.payload.get('posts')))
+      .set('posts', state.get('posts').concat(action.payload.get('posts').filter(id => state.get('posts').indexOf(id) < 0)))
       .set('page', action.payload.get('page'))
       .setIn(['pagination', 'totalPages'], parseInt(action.payload.getIn(['pagination', 'totalPages']), 10))
       .setIn(['pagination', 'page'], action.payload.getIn(['pagination', 'page']))
