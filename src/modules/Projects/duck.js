@@ -152,7 +152,7 @@ export function* loadPostsSaga(action) {
       type: LOAD_POSTS.SUCCESS,
       payload: fromJS({
         posts: normalized.result,
-        pagination: { ...posts.pagination, page: action.payload || 1 },
+        pagination: { ...posts.pagination, page: action.payload.page || 1 },
         page: normalizedPage.result,
       }),
       entities: fromJS({ ...normalized.entities, ...normalizedPage.entities }),

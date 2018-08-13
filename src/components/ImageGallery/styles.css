@@ -1,18 +1,12 @@
 .image {
-  display: inline-block;
+  box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 3px;
   text-align: center;
-  width: 100%;
-}
-
-.image:first-of-type {
-  margin-top: 10px;
 }
 
 .image img {
-  max-height: 90vh;
-  max-width: 100%;
+  width: 100%;
 }
 
 .image figcaption {
@@ -26,29 +20,18 @@
   text-transform: uppercase;
 }
 
-@media all and (min-width: 1060px) {
+@media all and (min-width: 620px) {
   .image {
     max-width: 50%;
-    min-width: 50%;
+  }
+}
+
+@media all and (min-width: 1060px) {
+  .image {
+    max-width: 33%;
   }
 
   .image:first-of-type {
     margin-top: 0;
-  }
-
-  .image img {
-    height: 80vh;
-    max-width: 100%;
-  }
-
-  .horizontal {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .horizontal img {
-    height: auto;
-    max-width: auto;
-    width: 100%;
   }
 }

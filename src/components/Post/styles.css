@@ -1,7 +1,8 @@
 .title {
   font-size: 2rem;
   line-height: 1em;
-  margin: 0;
+  margin: 0 0 1em;
+  text-align: right;
   text-transform: uppercase;
 }
 
@@ -28,6 +29,7 @@
 @media all and (min-width: 680px) {
   .title {
     font-size: 3rem;
+    margin: 0;
   }
 }
 

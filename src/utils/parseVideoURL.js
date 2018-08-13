@@ -11,7 +11,7 @@ export default function parseVideoURL(url) {
     thumbnail = `//img.youtube.com/vi/${RegExp.$6}/0.jpg`
   } else if (RegExp.$3.indexOf('vimeo') > -1) {
     type = 'vimeo'
-    src = `//player.vimeo.com/video/${RegExp.$6}?autoplay=1`
+    src = `//player.vimeo.com/video/${RegExp.$6}?autoplay=1&loop=1&autopause=0`
     thumbnail = ''
   }
 

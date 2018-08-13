@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
+import { withRouter } from 'react-router-dom'
 
 import {
   loadPosts,
@@ -16,4 +17,4 @@ const mapDispatchToProps = {
   loadPosts,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Projects)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Projects))

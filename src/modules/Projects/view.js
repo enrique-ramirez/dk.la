@@ -7,9 +7,16 @@ import InfiniteScroll from 'react-infinite-scroller'
 
 import ProjectsList from 'components/ProjectsList'
 import Spinner from 'components/Spinner'
+import matchProptype from 'types/match'
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Projects extends React.Component {
+  constructor() {
+    super()
+
+    this.getNextPage = this.getNextPage.bind(this)
+  }
+
   componentWillMount() {
     const {
       loadPosts,
@@ -17,7 +24,7 @@ class Projects extends React.Component {
     } = this.props
 
     if (projects.get('loading')) {
-      loadPosts()
+      loadPosts({})
     }
   }
 
@@ -27,11 +34,20 @@ class Projects extends React.Component {
     return !is(nextProps.projects, props.projects)
   }
 
+  getNextPage(page) {
+    const { loadPosts, match } = this.props
+    const options = { page }
+
+    if (match.params.category) {
+      options.category = match.params.category
+    }
+
+    loadPosts(options)
+  }
+
   render() {
-    const {
-      loadPosts,
-      projects,
-    } = this.props
+    const { getNextPage } = this
+    const { projects } = this.props
 
     return (
       <section>
@@ -43,7 +59,7 @@ class Projects extends React.Component {
         <InfiniteScroll
           hasMore={projects.getIn(['pagination', 'totalPages']) > projects.getIn(['pagination', 'page'])}
           loader={<Spinner key={0} />}
-          loadMore={loadPosts}
+          loadMore={getNextPage}
           pageStart={1}
           threshold={50}
         >
@@ -60,6 +76,8 @@ class Projects extends React.Component {
 Projects.propTypes = {
   /** Function to request projects page. */
   loadPosts: PropTypes.func,
+  /** react router match */
+  match: matchProptype,
   /** Projects state */
   projects: ImmutablePropTypes.map, // eslint-disable-line react/no-typos
 }

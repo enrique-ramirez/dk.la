@@ -42,6 +42,11 @@ const render = (headerMenu, footerMenu) => route => (
         />
 
         <Route
+          path="/category/:category"
+          render={layoutRender(Projects, headerMenu, footerMenu)}
+        />
+
+        <Route
           path="/"
           render={layoutRender(Splash, headerMenu, footerMenu)}
         />

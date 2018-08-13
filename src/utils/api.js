@@ -41,8 +41,8 @@ export const fetchPage = (slug = '') => (
   }).then(parseJSON)
 )
 
-export const fetchPosts = (page = 1) => (
-  fetch(addParameterToURL(`${mainAPIURL}/project`, `per_page=9&page=${page}`), {
+export const fetchPosts = ({ page = 1, categories }) => (
+  fetch(addParameterToURL(`${mainAPIURL}/project`, `per_page=9&page=${page}${categories ? `&categories=${categories}` : ''}`), {
     headers,
     method: 'GET',
   }).then(parseJSON)

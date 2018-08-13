@@ -1,7 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Masonry from 'react-masonry-component'
 
 import Image from './image'
+
+const masonryOptions = {
+  transitionDuration: 0,
+}
 
 function ImageGallery(props) {
   const {
@@ -9,11 +14,11 @@ function ImageGallery(props) {
   } = props
 
   return (
-    <section>
+    <Masonry options={masonryOptions}>
       {images.map(image => (
         <Image key={image.id} image={image} />
       ))}
-    </section>
+    </Masonry>
   )
 }
 
