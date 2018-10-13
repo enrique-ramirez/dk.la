@@ -44,16 +44,30 @@ const defaultState = fromJS({
     totalPages: 1,
   },
   posts: [],
+  path: '',
 })
 
 const reducer = handleActions({
   [LOCATION_CHANGE]: (state, action) => {
     const regex = /^(\/projects|\/category)/
-    return state
-      .set('posts', regex.test(action.payload.pathname) ? List() : state.get('posts'))
+    const isCategoryPage = regex.test(action.payload.pathname)
+    const prevPath = state.get('path')
+    let result = state
+
+    if (isCategoryPage) {
+      result = result
+        .set('path', action.payload.pathname)
+    }
+
+    if (prevPath === result.get('path')) {
+      return result
+    }
+
+    return result
+      .set('posts', isCategoryPage ? List() : state.get('posts'))
       .set('pagination', defaultState.get('pagination'))
       .set('loading', true)
-      .set('page', undefined)
+      .set('path', action.payload.pathname)
   },
   [LOAD_POSTS.SUCCESS]: (state, action) => (
     state
