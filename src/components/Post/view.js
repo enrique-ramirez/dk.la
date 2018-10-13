@@ -15,10 +15,13 @@ import messages from './messages'
 
 function Post(props) {
   const {
+    currentImage,
     currentVideo,
     handleChangeVideo,
+    handleCloseModal,
     handleImageClick,
     isLoading,
+    isModalOpen,
     post,
   } = props
 
@@ -63,7 +66,15 @@ function Post(props) {
       </ContentWrap>
 
       {images.length
-        ? <ImageGallery handleImageClick={handleImageClick} images={images} />
+        ? (
+          <ImageGallery
+            currentImage={currentImage}
+            handleCloseModal={handleCloseModal}
+            handleImageClick={handleImageClick}
+            images={images}
+            isModalOpen={isModalOpen}
+          />
+        )
         : null
       }
 
@@ -73,14 +84,20 @@ function Post(props) {
 }
 
 Post.propTypes = {
+  /** Current Image */
+  currentImage: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   /** Current Video */
   currentVideo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   /** Function to execute when clicking on video thumbnails */
   handleChangeVideo: PropTypes.func.isRequired,
+  /** Function to execute when modal close is called */
+  handleCloseModal: PropTypes.func,
   /** Function to execute when clicking on an image */
   handleImageClick: PropTypes.func.isRequired,
   /** Post is loading */
   isLoading: PropTypes.bool,
+  /** Modal is open */
+  isModalOpen: PropTypes.bool,
   /** Post data */
   post: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 }

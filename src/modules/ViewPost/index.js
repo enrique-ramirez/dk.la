@@ -3,6 +3,7 @@ import { createStructuredSelector } from 'reselect'
 
 import {
   changeVideo,
+  closeModal,
   imageClick,
   loadPost,
   makeGetViewPost,
@@ -16,6 +17,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   changeVideo,
+  closeModal,
   imageClick,
   loadPost,
 }

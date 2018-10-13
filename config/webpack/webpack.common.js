@@ -17,6 +17,7 @@ module.exports = options => ({
       },
       {
         test: /\.css$/,
+        exclude: /react-image-lightbox\/style\.css$/,
         use: [
           'style-loader',
           {
@@ -29,6 +30,13 @@ module.exports = options => ({
             },
           },
           'postcss-loader',
+        ],
+      },
+      {
+        test: /react-image-lightbox\/style\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
         ],
       },
       {

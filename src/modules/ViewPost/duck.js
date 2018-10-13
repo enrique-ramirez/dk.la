@@ -14,6 +14,7 @@ import {
 } from 'store/constants'
 import post from 'store/schemas/post'
 import video from 'store/schemas/video'
+import media from 'store/schemas/media'
 import parseVideoURL from 'utils/parseVideoURL'
 
 import {
@@ -28,12 +29,15 @@ export const LOAD_POST = viewPost.defineAction('LOAD_POST', [PENDING, SUCCESS, E
 export const LOAD_VIDEO = viewPost.defineAction('LOAD_VIDEO', [PENDING, SUCCESS, ERROR])
 export const CHANGE_VIDEO = viewPost.defineAction('CHANGE_VIDEO', [SUCCESS])
 export const IMAGE_CLICK = viewPost.defineAction('IMAGE_CLICK', [SUCCESS])
+export const CLOSE_MODAL = viewPost.defineAction('CLOSE_MODAL', [SUCCESS])
 
 /* Reducer */
 const defaultState = fromJS({
+  currentImage: undefined,
+  currentVideo: undefined,
+  isModalOpen: false,
   loading: true,
   post: 0,
-  currentVideo: undefined,
 })
 
 const reducer = handleActions({
@@ -45,6 +49,16 @@ const reducer = handleActions({
   [CHANGE_VIDEO.SUCCESS]: (state, action) => (
     state
       .set('currentVideo', action.payload)
+  ),
+  [IMAGE_CLICK.SUCCESS]: (state, action) => (
+    state
+      .set('isModalOpen', true)
+      .set('currentImage', action.payload)
+  ),
+  [CLOSE_MODAL.SUCCESS]: state => (
+    state
+      .set('isModalOpen', false)
+      .set('currentImage', undefined)
   ),
   [LOCATION_CHANGE]: () => (
     defaultState
@@ -80,6 +94,7 @@ export const makeGetViewPost = () => createSelector(
     const result = {
       loading: state.getIn(['viewPost', 'loading']),
       post: postResult || {},
+      isModalOpen: state.getIn(['viewPost', 'isModalOpen']),
     }
 
     if (postResult.getIn(['acf', 'videos'])) {
@@ -90,6 +105,10 @@ export const makeGetViewPost = () => createSelector(
       result.currentVideo = currentVideo
     }
 
+    if (state.getIn(['viewPost', 'currentImage'])) {
+      result.currentImage = denormalize(state.getIn(['viewPost', 'currentImage']), media, state.get('entities'))
+    }
+
     return fromJS(result)
   },
 )
@@ -97,7 +116,8 @@ export const makeGetViewPost = () => createSelector(
 /* Action Creators */
 export const loadPost = createAction(LOAD_POST.ACTION)
 export const changeVideo = createAction(CHANGE_VIDEO.SUCCESS)
-export const imageClick = createAction(IMAGE_CLICK.ACTION)
+export const imageClick = createAction(IMAGE_CLICK.SUCCESS)
+export const closeModal = createAction(CLOSE_MODAL.SUCCESS)
 
 /* Side Effects */
 export function* loadVideoSaga(videoData) {
