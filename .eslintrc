@@ -28,7 +28,7 @@
       "specialLink": [ "to" ],
       "aspects": [ "noHref", "invalidHref", "preferButton" ]
     }],
-    "jsx-a11y/click-events-have-key-events": 1,
+    "jsx-a11y/click-events-have-key-events": 2,
     "jsx-a11y/label-has-for": [2, {
       "required": {
         "some": [ "nesting" ]
