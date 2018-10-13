@@ -46,8 +46,10 @@ class Image extends React.Component {
         <button onClick={handleClick} type="button">
           <img
             alt={image.alt}
+            height={image.sizes['medium_large-height']}
             onLoad={this.handleLoad}
             src={image.sizes.medium_large}
+            width={image.sizes['medium_large-width']}
           />
         </button>
       </figure>
