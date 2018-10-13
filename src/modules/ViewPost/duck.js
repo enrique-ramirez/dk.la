@@ -14,7 +14,6 @@ import {
 } from 'store/constants'
 import post from 'store/schemas/post'
 import video from 'store/schemas/video'
-import media from 'store/schemas/media'
 import parseVideoURL from 'utils/parseVideoURL'
 
 import {
@@ -30,6 +29,7 @@ export const LOAD_VIDEO = viewPost.defineAction('LOAD_VIDEO', [PENDING, SUCCESS,
 export const CHANGE_VIDEO = viewPost.defineAction('CHANGE_VIDEO', [SUCCESS])
 export const IMAGE_CLICK = viewPost.defineAction('IMAGE_CLICK', [SUCCESS])
 export const CLOSE_MODAL = viewPost.defineAction('CLOSE_MODAL', [SUCCESS])
+export const MODAL_IMAGE_CHANGE = viewPost.defineAction('MODAL_IMAGE_CHANGE', [SUCCESS])
 
 /* Reducer */
 const defaultState = fromJS({
@@ -59,6 +59,10 @@ const reducer = handleActions({
     state
       .set('isModalOpen', false)
       .set('currentImage', undefined)
+  ),
+  [MODAL_IMAGE_CHANGE.SUCCESS]: (state, action) => (
+    state
+      .set('currentImage', action.payload)
   ),
   [LOCATION_CHANGE]: () => (
     defaultState
@@ -95,6 +99,7 @@ export const makeGetViewPost = () => createSelector(
       loading: state.getIn(['viewPost', 'loading']),
       post: postResult || {},
       isModalOpen: state.getIn(['viewPost', 'isModalOpen']),
+      currentImage: state.getIn(['viewPost', 'currentImage']),
     }
 
     if (postResult.getIn(['acf', 'videos'])) {
@@ -103,10 +108,6 @@ export const makeGetViewPost = () => createSelector(
         : postResult.getIn(['acf', 'videos', 0])
 
       result.currentVideo = currentVideo
-    }
-
-    if (state.getIn(['viewPost', 'currentImage'])) {
-      result.currentImage = denormalize(state.getIn(['viewPost', 'currentImage']), media, state.get('entities'))
     }
 
     return fromJS(result)
@@ -118,6 +119,7 @@ export const loadPost = createAction(LOAD_POST.ACTION)
 export const changeVideo = createAction(CHANGE_VIDEO.SUCCESS)
 export const imageClick = createAction(IMAGE_CLICK.SUCCESS)
 export const closeModal = createAction(CLOSE_MODAL.SUCCESS)
+export const imageChange = createAction(MODAL_IMAGE_CHANGE.SUCCESS)
 
 /* Side Effects */
 export function* loadVideoSaga(videoData) {

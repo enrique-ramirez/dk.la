@@ -20,6 +20,7 @@ function Post(props) {
     handleChangeVideo,
     handleCloseModal,
     handleImageClick,
+    handleImageChange,
     isLoading,
     isModalOpen,
     post,
@@ -70,6 +71,7 @@ function Post(props) {
           <ImageGallery
             currentImage={currentImage}
             handleCloseModal={handleCloseModal}
+            handleImageChange={handleImageChange}
             handleImageClick={handleImageClick}
             images={images}
             isModalOpen={isModalOpen}
@@ -85,13 +87,15 @@ function Post(props) {
 
 Post.propTypes = {
   /** Current Image */
-  currentImage: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  currentImage: PropTypes.number,
   /** Current Video */
   currentVideo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   /** Function to execute when clicking on video thumbnails */
   handleChangeVideo: PropTypes.func.isRequired,
   /** Function to execute when modal close is called */
   handleCloseModal: PropTypes.func,
+  /** Function to call when next image is requested */
+  handleImageChange: PropTypes.func,
   /** Function to execute when clicking on an image */
   handleImageClick: PropTypes.func.isRequired,
   /** Post is loading */

@@ -32,6 +32,7 @@ class ViewPost extends React.Component {
       changeVideo,
       closeModal,
       imageClick,
+      imageChange,
       viewPost,
     } = this.props
 
@@ -42,10 +43,11 @@ class ViewPost extends React.Component {
         </Helmet>
 
         <Post
-          currentImage={viewPost.get('currentImage') ? viewPost.get('currentImage').toJS() : undefined}
+          currentImage={viewPost.get('currentImage')}
           currentVideo={viewPost.get('currentVideo') ? viewPost.get('currentVideo').toJS() : undefined}
           handleChangeVideo={changeVideo}
           handleCloseModal={closeModal}
+          handleImageChange={imageChange}
           handleImageClick={imageClick}
           isLoading={viewPost.get('loading')}
           isModalOpen={viewPost.get('isModalOpen')}
@@ -61,6 +63,8 @@ ViewPost.propTypes = {
   changeVideo: PropTypes.func,
   /** Function to execute when modal close is called */
   closeModal: PropTypes.func,
+  /** Function to call when next image is requested */
+  imageChange: PropTypes.func,
   /** Handles click on image */
   imageClick: PropTypes.func,
   /** Function to request viewPost page. */

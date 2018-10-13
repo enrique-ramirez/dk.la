@@ -16,7 +16,19 @@ function ImageGallery(props) {
     handleCloseModal,
     images,
     isModalOpen,
+    handleImageChange,
   } = props
+
+  const currentImageIndex = currentImage
+    ? images.findIndex(image => image.id === currentImage)
+    : undefined
+
+
+  const previousImage = images[currentImageIndex - 1]
+  const nextImage = images[currentImageIndex + 1]
+
+  const _handleNextImage = () => handleImageChange(images[currentImageIndex + 1].ID)
+  const _handlePreviousImage = () => handleImageChange(images[currentImageIndex - 1].ID)
 
   return (
     <React.Fragment>
@@ -35,8 +47,12 @@ function ImageGallery(props) {
 
       {isModalOpen && (
         <Lightbox
-          mainSrc={currentImage.sizes.large}
+          mainSrc={images[currentImageIndex].sizes.large}
+          nextSrc={nextImage ? nextImage.sizes.large : undefined}
           onCloseRequest={handleCloseModal}
+          onMoveNextRequest={_handleNextImage}
+          onMovePrevRequest={_handlePreviousImage}
+          prevSrc={previousImage ? previousImage.sizes.large : undefined}
         />
       )}
     </React.Fragment>
@@ -45,9 +61,11 @@ function ImageGallery(props) {
 
 ImageGallery.propTypes = {
   /** Current Image */
-  currentImage: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  currentImage: PropTypes.number,
   /** Function to execute when modal close is called */
   handleCloseModal: PropTypes.func,
+  /** Function to call when next image is requested */
+  handleImageChange: PropTypes.func,
   /** Function to execute when image is clicked */
   handleImageClick: PropTypes.func,
   /** Images to display */

@@ -7,6 +7,7 @@ import {
   imageClick,
   loadPost,
   makeGetViewPost,
+  imageChange,
 } from './duck'
 
 import ViewPost from './view'
@@ -20,6 +21,7 @@ const mapDispatchToProps = {
   closeModal,
   imageClick,
   loadPost,
+  imageChange,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewPost)
