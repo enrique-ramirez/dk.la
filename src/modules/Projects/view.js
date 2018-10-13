@@ -21,10 +21,16 @@ class Projects extends React.Component {
     const {
       loadPosts,
       projects,
+      match,
     } = this.props
+    const options = {}
+
+    if (match.params.category) {
+      options.category = match.params.category
+    }
 
     if (projects.get('loading')) {
-      loadPosts({})
+      loadPosts(options)
     }
   }
 

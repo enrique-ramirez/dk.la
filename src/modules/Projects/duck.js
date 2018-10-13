@@ -1,8 +1,9 @@
 import { createAction, handleActions } from 'redux-actions'
 import { takeLatest, put, call, all } from 'redux-saga/effects'
 import { createSelector } from 'reselect'
-import { fromJS, Map } from 'immutable'
+import { fromJS, Map, List } from 'immutable'
 import { normalize, denormalize } from 'normalizr'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 import {
   SUCCESS,
@@ -46,6 +47,14 @@ const defaultState = fromJS({
 })
 
 const reducer = handleActions({
+  [LOCATION_CHANGE]: (state, action) => {
+    const regex = /^(\/projects|\/category)/
+    return state
+      .set('posts', regex.test(action.payload.pathname) ? List() : state.get('posts'))
+      .set('pagination', defaultState.get('pagination'))
+      .set('loading', true)
+      .set('page', undefined)
+  },
   [LOAD_POSTS.SUCCESS]: (state, action) => (
     state
       .set('loading', false)
@@ -116,10 +125,10 @@ export function* loadMediaSaga(id) {
   }
 }
 
-export function* loadCategorySaga(id) {
+export function* loadCategorySaga({ id, slug }) {
   try {
-    const response = yield call(fetchCategories, id)
-    const normalized = yield call(normalize, response.json, category)
+    const response = yield call(fetchCategories, { id, slug })
+    const normalized = yield call(normalize, response.json, id ? category : [category])
     yield put({
       type: LOAD_CATEGORY.SUCCESS,
       payload: fromJS(normalized.result),
@@ -131,13 +140,27 @@ export function* loadCategorySaga(id) {
 }
 
 export function* loadPostsSaga(action) {
+  let normalizedCurrentCategory
+  let postsPayload = action.payload
+
   try {
+    yield put({ type: LOAD_POSTS.PENDING, payload: postsPayload })
+
+    if (action.payload.category) {
+      const currentCategory = yield call(fetchCategories, { slug: action.payload.category })
+      normalizedCurrentCategory = yield call(normalize, currentCategory.json, [category])
+    }
+
     // Get Page
     const responsePage = yield call(fetchPage, 'posts')
     const normalizedPage = yield call(normalize, responsePage.json[0], page)
 
     // Get POSTS
-    const posts = yield call(fetchPosts, action.payload)
+    if (normalizedCurrentCategory) {
+      postsPayload = { ...action.payload, categories: normalizedCurrentCategory.result }
+    }
+
+    const posts = yield call(fetchPosts, postsPayload)
 
     // Get featured media
     const featuredMediaIds = posts.json.map(item => item.featured_media).filter(Number)
@@ -145,7 +168,7 @@ export function* loadPostsSaga(action) {
 
     // get categories
     const categoriesIds = uniqflat(posts.json.map(item => item.categories))
-    yield all(categoriesIds.map(id => call(loadCategorySaga, id)))
+    yield all(categoriesIds.map(id => call(loadCategorySaga, { id })))
 
     const normalized = yield call(normalize, posts.json, [post])
     yield put({

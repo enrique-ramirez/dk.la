@@ -41,8 +41,8 @@ export const fetchPage = (slug = '') => (
   }).then(parseJSON)
 )
 
-export const fetchPosts = ({ page = 1, categories }) => (
-  fetch(addParameterToURL(`${mainAPIURL}/project`, `per_page=9&page=${page}${categories ? `&categories=${categories}` : ''}`), {
+export const fetchPosts = ({ page = 1, categories = [] }) => (
+  fetch(addParameterToURL(`${mainAPIURL}/project`, `per_page=9&page=${page}${categories.length ? `&categories=${categories.join(',')}` : ''}`), {
     headers,
     method: 'GET',
   }).then(parseJSON)
@@ -76,8 +76,8 @@ export const fetchMenuLocations = (location = '') => (
   }).then(parseJSON)
 )
 
-export const fetchCategories = (id = '') => (
-  fetch(`${mainAPIURL}/categories/${id}`, {
+export const fetchCategories = ({ id = '', slug = '' }) => (
+  fetch(addParameterToURL(`${mainAPIURL}/categories/${id}`, `slug=${slug}`), {
     headers,
     method: 'GET',
   }).then(parseJSON)
