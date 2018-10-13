@@ -47,7 +47,7 @@ class Image extends React.Component {
           <img
             alt={image.alt}
             onLoad={this.handleLoad}
-            src={image.url}
+            src={image.sizes.medium_large}
           />
         </button>
       </figure>
