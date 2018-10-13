@@ -3,6 +3,7 @@ import { createStructuredSelector } from 'reselect'
 
 import {
   changeVideo,
+  imageClick,
   loadPost,
   makeGetViewPost,
 } from './duck'
@@ -15,6 +16,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   changeVideo,
+  imageClick,
   loadPost,
 }
 

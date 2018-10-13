@@ -10,19 +10,29 @@ const masonryOptions = {
 
 function ImageGallery(props) {
   const {
+    handleImageClick,
     images,
   } = props
 
   return (
     <Masonry options={masonryOptions}>
-      {images.map(image => (
-        <Image key={image.id} image={image} />
-      ))}
+      {images.map((image) => {
+        const _handleImageClick = () => handleImageClick(image.id)
+        return (
+          <Image
+            key={image.id}
+            handleClick={_handleImageClick}
+            image={image}
+          />
+        )
+      })}
     </Masonry>
   )
 }
 
 ImageGallery.propTypes = {
+  /** Function to execute when image is clicked */
+  handleImageClick: PropTypes.func,
   /** Images to display */
   images: PropTypes.array, // eslint-disable-line react/forbid-prop-types
 }

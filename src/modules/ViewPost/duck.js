@@ -27,6 +27,7 @@ const viewPost = domain.defineAction('viewPost')
 export const LOAD_POST = viewPost.defineAction('LOAD_POST', [PENDING, SUCCESS, ERROR])
 export const LOAD_VIDEO = viewPost.defineAction('LOAD_VIDEO', [PENDING, SUCCESS, ERROR])
 export const CHANGE_VIDEO = viewPost.defineAction('CHANGE_VIDEO', [SUCCESS])
+export const IMAGE_CLICK = viewPost.defineAction('IMAGE_CLICK', [SUCCESS])
 
 /* Reducer */
 const defaultState = fromJS({
@@ -96,6 +97,7 @@ export const makeGetViewPost = () => createSelector(
 /* Action Creators */
 export const loadPost = createAction(LOAD_POST.ACTION)
 export const changeVideo = createAction(CHANGE_VIDEO.SUCCESS)
+export const imageClick = createAction(IMAGE_CLICK.ACTION)
 
 /* Side Effects */
 export function* loadVideoSaga(videoData) {

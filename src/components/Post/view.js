@@ -17,6 +17,7 @@ function Post(props) {
   const {
     currentVideo,
     handleChangeVideo,
+    handleImageClick,
     isLoading,
     post,
   } = props
@@ -62,7 +63,7 @@ function Post(props) {
       </ContentWrap>
 
       {images.length
-        ? <ImageGallery images={images} />
+        ? <ImageGallery handleImageClick={handleImageClick} images={images} />
         : null
       }
 
@@ -76,6 +77,8 @@ Post.propTypes = {
   currentVideo: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   /** Function to execute when clicking on video thumbnails */
   handleChangeVideo: PropTypes.func.isRequired,
+  /** Function to execute when clicking on an image */
+  handleImageClick: PropTypes.func.isRequired,
   /** Post is loading */
   isLoading: PropTypes.bool,
   /** Post data */

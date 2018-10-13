@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import ContentWrap from 'components/ContentWrap'
-
 import styles from './styles.css'
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -36,7 +34,7 @@ class Image extends React.Component {
   }
 
   render() {
-    const { image } = this.props
+    const { handleClick, image } = this.props
     const { horizontal } = this.state
 
     let classes = styles.image
@@ -45,20 +43,20 @@ class Image extends React.Component {
 
     return (
       <figure key={image.id} className={classes}>
-        <img
-          alt={image.alt}
-          onLoad={this.handleLoad}
-          src={image.url}
-        />
-        <ContentWrap tagName="figcaption">
-          {image.title}
-        </ContentWrap>
+        <button onClick={handleClick} type="button">
+          <img
+            alt={image.alt}
+            onLoad={this.handleLoad}
+            src={image.url}
+          />
+        </button>
       </figure>
     )
   }
 }
 
 Image.propTypes = {
+  handleClick: PropTypes.func,
   image: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 }
 
