@@ -39,6 +39,7 @@ class ViewPage extends React.Component {
         </Helmet>
 
         <Page
+          isLoading={viewPage.get('loading')}
           page={viewPage.get('page').toJS()}
         />
       </section>

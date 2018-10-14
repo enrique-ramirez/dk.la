@@ -25,7 +25,18 @@ function Page(props) {
     <section>
       <ScrollToTopOnMount />
 
-      <ContentWrap className={styles.wrapper}>
+      <figure className={styles.header_image}>
+        {page.featured_media &&
+          (
+            <img
+              alt={page.featured_media.alt_text}
+              src={page.featured_media.source_url}
+            />
+          )
+        }
+      </figure>
+
+      <ContentWrap className={styles.wrapper} hasBack>
         <h1 className={styles.title} dangerouslySetInnerHTML={title} />
         <div className={styles.content} dangerouslySetInnerHTML={content} />
       </ContentWrap>

@@ -11,7 +11,6 @@ import {
   PENDING,
   domain,
 } from 'store/constants'
-
 import post from 'store/schemas/post'
 import page from 'store/schemas/page'
 import media from 'store/schemas/media'

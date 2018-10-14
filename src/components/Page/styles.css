@@ -1,8 +1,16 @@
+.header_image {
+  margin: 0 0 2em;
+  padding: 0;
+}
+
+.header_image img {
+  width: 100%;
+}
+
 .title {
   font-size: 2rem;
   line-height: 1em;
   margin: 0 0 1em;
-  text-align: right;
   text-transform: uppercase;
 }
 
@@ -20,15 +28,12 @@
   margin-bottom: 0;
 }
 
+.wrapper {
+  padding: 0 0 50px;
+}
+
 @media all and (min-width: 680px) {
   .title {
     font-size: 3rem;
-    margin: 0;
-  }
-}
-
-@media all and (min-width: 920px) {
-  .wrapper {
-    padding: 0 0 50px;
   }
 }

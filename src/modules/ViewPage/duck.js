@@ -11,8 +11,10 @@ import {
   domain,
 } from 'store/constants'
 import page from 'store/schemas/page'
+import media from 'store/schemas/media'
 
 import {
+  fetchMedia,
   fetchPage,
 } from 'utils/api'
 
@@ -20,6 +22,7 @@ import {
 const viewPage = domain.defineAction('viewPage')
 
 export const LOAD_PAGE = viewPage.defineAction('LOAD_PAGE', [PENDING, SUCCESS, ERROR])
+export const LOAD_MEDIA = viewPage.defineAction('LOAD_MEDIA', [PENDING, SUCCESS, ERROR])
 
 /* Reducer */
 const defaultState = fromJS({
@@ -74,12 +77,30 @@ export const makeGetViewPage = () => createSelector(
 export const loadPage = createAction(LOAD_PAGE.ACTION)
 
 /* Side Effects */
+export function* loadMediaSaga(id) {
+  try {
+    const response = yield call(fetchMedia, id)
+    const normalized = yield call(normalize, response.json, media)
+    yield put({
+      type: LOAD_MEDIA.SUCCESS,
+      payload: fromJS(normalized.result),
+      entities: fromJS(normalized.entities),
+    })
+  } catch (err) {
+    yield put({ type: LOAD_MEDIA.ERROR, payload: { error: err, id } })
+  }
+}
+
 export function* loadPageSaga(action) {
   try {
     // Get PAGE
     const response = yield call(fetchPage, action.payload)
     const data = { ...response.json[0] }
 
+    // Get featured media
+    if (data.featured_media) {
+      yield call(loadMediaSaga, data.featured_media)
+    }
 
     const normalized = yield call(normalize, data, page)
 
