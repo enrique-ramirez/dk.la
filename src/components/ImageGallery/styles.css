@@ -5,7 +5,8 @@
   text-align: center;
 }
 
-.image img {
+.image img,
+.preload {
   height: auto;
   width: 100%;
 }
@@ -29,18 +30,31 @@
   text-transform: uppercase;
 }
 
+.preload {
+  background: #eee;
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 100px;
+  min-height: 200px;
+  min-width: 360px;
+  padding-top: 70px;
+}
+
 @media all and (min-width: 620px) {
-  .image {
+  .image,
+  .preload {
     max-width: 50%;
   }
 }
 
 @media all and (min-width: 1060px) {
-  .image {
+  .image,
+  .preload {
     max-width: 33%;
   }
 
-  .image:first-of-type {
+  .image:first-of-type,
+  .preload:first-of-type {
     margin-top: 0;
   }
 }

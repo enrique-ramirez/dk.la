@@ -6,57 +6,80 @@ import Lightbox from 'react-image-lightbox'
 import Image from './image'
 
 const masonryOptions = {
-  transitionDuration: 0,
+  transitionDuration: 200,
 }
 
-function ImageGallery(props) {
-  const {
-    currentImage,
-    handleImageClick,
-    handleCloseModal,
-    images,
-    isModalOpen,
-    handleImageChange,
-  } = props
+class ImageGallery extends React.PureComponent {
+  constructor(props) {
+    super(props)
 
-  const currentImageIndex = currentImage
-    ? images.findIndex(image => image.id === currentImage)
-    : undefined
+    this.registerMasonryRef = this.registerMasonryRef.bind(this)
+    this.handleImageLoaded = this.handleImageLoaded.bind(this)
+  }
+
+  registerMasonryRef(node) {
+    this.$masonry = node
+    window.test = node
+  }
+
+  handleImageLoaded() {
+    this.$masonry.performLayout()
+  }
+
+  render() {
+    const {
+      currentImage,
+      handleImageClick,
+      handleCloseModal,
+      images,
+      isModalOpen,
+      handleImageChange,
+    } = this.props
+
+    const currentImageIndex = currentImage
+      ? images.findIndex(image => image.id === currentImage)
+      : undefined
 
 
-  const previousImage = images[currentImageIndex - 1]
-  const nextImage = images[currentImageIndex + 1]
+    const previousImage = images[currentImageIndex - 1]
+    const nextImage = images[currentImageIndex + 1]
 
-  const _handleNextImage = () => handleImageChange(images[currentImageIndex + 1].ID)
-  const _handlePreviousImage = () => handleImageChange(images[currentImageIndex - 1].ID)
+    const _handleNextImage = () => handleImageChange(images[currentImageIndex + 1].ID)
+    const _handlePreviousImage = () => handleImageChange(images[currentImageIndex - 1].ID)
 
-  return (
-    <React.Fragment>
-      <Masonry options={masonryOptions}>
-        {images.map((image) => {
-          const _handleImageClick = () => handleImageClick(image.id)
-          return (
-            <Image
-              key={image.id}
-              handleClick={_handleImageClick}
-              image={image}
-            />
-          )
-        })}
-      </Masonry>
+    return (
+      <React.Fragment>
+        <Masonry
+          ref={this.registerMasonryRef}
+          options={masonryOptions}
+          updateOnEachImageLoad
+        >
+          {images.map((image) => {
+            const _handleImageClick = () => handleImageClick(image.id)
+            return (
+              <Image
+                key={image.id}
+                handleClick={_handleImageClick}
+                image={image}
+                onLoad={this.handleImageLoaded}
+              />
+            )
+          })}
+        </Masonry>
 
-      {isModalOpen && (
-        <Lightbox
-          mainSrc={images[currentImageIndex].sizes.large}
-          nextSrc={nextImage ? nextImage.sizes.large : undefined}
-          onCloseRequest={handleCloseModal}
-          onMoveNextRequest={_handleNextImage}
-          onMovePrevRequest={_handlePreviousImage}
-          prevSrc={previousImage ? previousImage.sizes.large : undefined}
-        />
-      )}
-    </React.Fragment>
-  )
+        {isModalOpen && (
+          <Lightbox
+            mainSrc={images[currentImageIndex].sizes.large}
+            nextSrc={nextImage ? nextImage.sizes.large : undefined}
+            onCloseRequest={handleCloseModal}
+            onMoveNextRequest={_handleNextImage}
+            onMovePrevRequest={_handlePreviousImage}
+            prevSrc={previousImage ? previousImage.sizes.large : undefined}
+          />
+        )}
+      </React.Fragment>
+    )
+  }
 }
 
 ImageGallery.propTypes = {
