@@ -19,7 +19,6 @@ class ImageGallery extends React.PureComponent {
 
   registerMasonryRef(node) {
     this.$masonry = node
-    window.test = node
   }
 
   handleImageLoaded() {

@@ -29,12 +29,11 @@
   box-sizing: border-box;
   color: #fff;
   display: block;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 900;
   height: 100%;
   left: 0;
   line-height: 1.1;
-  opacity: 0;
   padding: 20px;
   position: absolute;
   right: 0;
@@ -42,10 +41,6 @@
   top: 0;
   transition: opacity 0.5s ease-in-out;
   width: 100%;
-}
-
-.post a:hover .meta {
-  opacity: 1;
 }
 
 .meta small {
@@ -73,10 +68,15 @@
 @media all and (min-width: 960px) {
   .meta {
     font-size: 2.8rem;
+    opacity: 0;
   }
 
   .posts {
     grid-gap: 25px;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .post a:hover .meta {
+    opacity: 1;
   }
 }

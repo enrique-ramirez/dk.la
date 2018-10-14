@@ -3,20 +3,36 @@ import PropTypes from 'prop-types'
 
 import styles from './styles.css'
 
-function FullScreenVideo(props) {
-  const {
-    mp4URL,
-    webmURL,
-  } = props
+class FullScreenVideo extends React.PureComponent {
+  constructor(props) {
+    super(props)
 
-  return (
-    <figure className={styles.wrapper}>
-      <video autoPlay className={styles.video} loop playsInline>
-        <source src={webmURL} type="video/webm" />
-        <source src={mp4URL} type="video/mp4" />
-      </video>
-    </figure>
-  )
+    this.registerVideoRef = this.registerVideoRef.bind(this)
+  }
+
+  componentDidMount() {
+    this.$video.play()
+  }
+
+  registerVideoRef(node) {
+    this.$video = node
+  }
+
+  render() {
+    const {
+      mp4URL,
+      webmURL,
+    } = this.props
+
+    return (
+      <figure className={styles.wrapper}>
+        <video ref={this.registerVideoRef} autoPlay className={styles.video} loop playsInline>
+          <source src={webmURL} type="video/webm" />
+          <source src={mp4URL} type="video/mp4" />
+        </video>
+      </figure>
+    )
+  }
 }
 
 FullScreenVideo.propTypes = {
