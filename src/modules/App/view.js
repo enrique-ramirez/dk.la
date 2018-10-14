@@ -11,6 +11,7 @@ import {
 import Splash from 'modules/Splash'
 import Projects from 'modules/Projects'
 import ViewPost from 'modules/ViewPost'
+import ViewPage from 'modules/ViewPage'
 
 import Layout from 'components/Layout'
 
@@ -44,6 +45,11 @@ const render = (headerMenu, footerMenu) => route => (
         <Route
           path="/category/:category"
           render={layoutRender(Projects, headerMenu, footerMenu)}
+        />
+
+        <Route
+          path="/:slug"
+          render={layoutRender(ViewPage, headerMenu, footerMenu)}
         />
 
         <Route
