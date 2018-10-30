@@ -87,6 +87,7 @@ class ProjectListItem extends React.PureComponent {
                 ref={this.registerVideoRef}
                 controls={false}
                 loop
+                muted
                 poster={this.getThumbnail()}
               >
                 {webm && <source src={webm} type="video/webm" />}
