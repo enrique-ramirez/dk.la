@@ -29,7 +29,7 @@
   box-sizing: border-box;
   color: #fff;
   display: block;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 900;
   height: 100%;
   left: 0;
@@ -59,7 +59,7 @@
   text-align: center;
 }
 
-@media all and (min-width: 680px) {
+@media all and (min-width: 620px) {
   .posts {
     grid-template-columns: 1fr 1fr;
   }
@@ -67,7 +67,7 @@
 
 @media all and (min-width: 960px) {
   .meta {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     opacity: 0;
   }
 
@@ -78,5 +78,11 @@
 
   .post a:hover .meta {
     opacity: 1;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .posts {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
