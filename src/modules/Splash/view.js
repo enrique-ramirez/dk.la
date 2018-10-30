@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { is } from 'immutable'
 import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import FullScreenVideo from 'components/FullScreenVideo'
 
@@ -18,6 +18,10 @@ class Splash extends React.Component {
     this.state = {
       scrolled: false,
     }
+
+    this.handleScroll = this.handleScroll.bind(this)
+    this.addEventListeners = this.addEventListeners.bind(this)
+    this.removeEventListeners = this.removeEventListeners.bind(this)
   }
 
   componentDidMount() {
@@ -30,19 +34,29 @@ class Splash extends React.Component {
       loadSplash()
     }
 
-    window.addEventListener('mousewheel', this.handleScroll)
-    window.addEventListener('DOMMouseScroll', this.handleScroll)
+    this.addEventListeners()
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { props } = this
+  shouldComponentUpdate(nextProps, nextState) {
+    const { props, state } = this
 
-    return !is(nextProps.splash, props.splash)
+    return !is(nextProps.splash, props.splash) || nextState.scrolled !== state.scrolled
   }
 
   componentWillUnmount() {
+    this.removeEventListeners()
+  }
+
+  addEventListeners() {
+    window.addEventListener('mousewheel', this.handleScroll)
+    window.addEventListener('DOMMouseScroll', this.handleScroll)
+    window.addEventListener('touchmove', this.handleScroll)
+  }
+
+  removeEventListeners() {
     window.removeEventListener('mousewheel', this.handleScroll)
     window.removeEventListener('DOMMouseScroll', this.handleScroll)
+    window.removeEventListener('touchmove', this.handleScroll)
   }
 
   handleScroll() {
@@ -63,7 +77,11 @@ class Splash extends React.Component {
     )
     const windowBottom = windowHeight + window.pageYOffset
 
+    console.log({ windowBottom, docHeight, state })
+
     if (windowBottom >= docHeight && !state.scrolled) {
+      this.removeEventListeners()
+
       // eslint-disable-next-line react/no-set-state
       this.setState({
         scrolled: true,
@@ -72,18 +90,23 @@ class Splash extends React.Component {
   }
 
   render() {
-    const {
-      splash,
-    } = this.props
+    const { splash } = this.props
+    const { scrolled } = this.state
+
+    const projectsLink = '/projects'
+
+    if (scrolled) {
+      return <Redirect push to={projectsLink} />
+    }
 
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>{splash.getIn(['page', 'acf', 'seo_title'])}</title>
           <meta content={splash.getIn(['page', 'acf', 'seo_description'])} name="description" />
         </Helmet>
 
-        <Link to="/projects">
+        <Link to={projectsLink}>
           <ScrollArrow className={styles.scroll} />
         </Link>
 
@@ -95,7 +118,7 @@ class Splash extends React.Component {
             webmURL={splash.getIn(['page', 'acf', 'featured_video_webm'])}
           />
         )}
-      </div>
+      </React.Fragment>
     )
   }
 }
